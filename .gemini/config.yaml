@@ -1,0 +1,13 @@
+severity: error
+include:
+  - "**/*.py"
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/*.md"
+exclude:
+  - "node_modules/**"
+  - ".git/**"
+  - "dist/**"
+  - "build/**"

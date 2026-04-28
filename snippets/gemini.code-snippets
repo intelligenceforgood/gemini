@@ -1,0 +1,142 @@
+{
+  "GCA PRD Template": {
+    "prefix": "gca-prd",
+    "body": [
+      "@prompts/prd-template.md Create a PRD for $1"
+    ],
+    "description": "Generate a PRD using GCA template"
+  },
+  "GCA Architecture Template": {
+    "prefix": "gca-arch",
+    "body": [
+      "@prompts/architecture-template.md Draft the architecture proposal focusing on $1"
+    ],
+    "description": "Generate architecture proposal using GCA template"
+  },
+  "GCA Implementation Plan": {
+    "prefix": "gca-plan",
+    "body": [
+      "@prompts/impl-plan.md Create a step-by-step task list in implementation-plan.md for $1"
+    ],
+    "description": "Generate implementation plan using GCA template"
+  },
+  "GCA TDD Scaffolding": {
+    "prefix": "gca-tdd",
+    "body": [
+      "@prompts/tdd-template.md Generate unit tests for $1"
+    ],
+    "description": "Generate unit tests using GCA template"
+  },
+  "GCA Code Review": {
+    "prefix": "gca-review",
+    "body": [
+      "@prompts/code-review.md Review my staged changes for architectural consistency and coding quality."
+    ],
+    "description": "Review staged changes using GCA template"
+  },
+  "GCA Plan Work": {
+    "prefix": "gca-plan-work",
+    "body": [
+      "@prompts/plan-work.md Plan the work for $1"
+    ],
+    "description": "Plan work using GCA routine"
+  },
+  "GCA Work on Task": {
+    "prefix": "gca-work-on-task",
+    "body": [
+      "@prompts/work-on-task.md Work on task: $1"
+    ],
+    "description": "Work on a specific task using GCA routine"
+  },
+  "GCA Fix Bug": {
+    "prefix": "gca-fix-bug",
+    "body": [
+      "@prompts/fix-bug.md Fix bug related to $1"
+    ],
+    "description": "Fix a bug using GCA routine"
+  },
+  "GCA Clarify": {
+    "prefix": "gca-clarify",
+    "body": [
+      "@prompts/clarify.md Clarify requirements or code for $1"
+    ],
+    "description": "Clarify requirements using GCA routine"
+  },
+  "GCA Deploy to Dev": {
+    "prefix": "gca-deploy-dev",
+    "body": [
+      "@prompts/deploy-to-dev.md Deploy changes to the dev environment"
+    ],
+    "description": "Deploy to Dev using GCA routine"
+  },
+  "GCA Manual Verification": {
+    "prefix": "gca-manual-verify",
+    "body": [
+      "@prompts/manual-verification.md Verify changes manually for $1"
+    ],
+    "description": "Manual verification using GCA routine"
+  },
+  "GCA Merge": {
+    "prefix": "gca-merge",
+    "body": [
+      "@prompts/merge.md Merge changes for $1"
+    ],
+    "description": "Merge changes using GCA routine"
+  },
+  "GCA Check Log": {
+    "prefix": "gca-check-log",
+    "body": [
+      "@prompts/check-log.md Check logs for $1"
+    ],
+    "description": "Check logs using GCA routine"
+  },
+  "GCA Rehydrate Session": {
+    "prefix": "gca-rehydrate",
+    "body": [
+      "@prompts/rehydrate-session.md Rehydrate the previous working session"
+    ],
+    "description": "Rehydrate session using GCA routine"
+  },
+  "GCA Sprint Wrapup": {
+    "prefix": "gca-sprint-wrapup",
+    "body": [
+      "@prompts/sprint-wrapup.md Perform sprint wrapup"
+    ],
+    "description": "Sprint wrapup using GCA routine"
+  },
+  "GCA Record Lesson": {
+    "prefix": "gca-record-lesson",
+    "body": [
+      "@prompts/record-lesson.md Record lesson learned about $1"
+    ],
+    "description": "Record lesson using GCA routine"
+  },
+  "GCA Hardening Sprint": {
+    "prefix": "gca-hardening-sprint",
+    "body": [
+      "@prompts/hardening-sprint.md Start a hardening sprint"
+    ],
+    "description": "Hardening sprint using GCA routine"
+  },
+  "GCA Handoff": {
+    "prefix": "gca-handoff",
+    "body": [
+      "@prompts/handoff.md Create a handoff manifest for $1"
+    ],
+    "description": "Create handoff using GCA routine"
+  },
+  "GCA Execute Manifest": {
+    "prefix": "gca-execute-manifest",
+    "body": [
+      "@prompts/execute-manifest.md Execute the handoff manifest"
+    ],
+    "description": "Execute handoff manifest using GCA routine"
+  },
+  "GCA Verify Handoff": {
+    "prefix": "gca-verify-handoff",
+    "body": [
+      "@prompts/verify-handoff.md Verify the handoff completion"
+    ],
+    "description": "Verify handoff using GCA routine"
+  }
+}
