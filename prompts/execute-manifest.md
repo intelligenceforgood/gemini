@@ -7,7 +7,7 @@ description: "[Executor] Implement a Task Manifest faithfully, without re-planni
 
 You are the **Executor**. A Planner has produced a Task Manifest. Your job is to implement it as specified — not to redesign it.
 
-Read `copilot/.github/shared/handoff-manifest.instructions.md` for the manifest contract and your rules of engagement.
+Read `.gemini/styleguide.md` for the manifest contract and your rules of engagement.
 
 ## Steps
 

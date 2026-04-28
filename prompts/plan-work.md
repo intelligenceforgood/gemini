@@ -13,7 +13,7 @@ description: "[Planner] Break a feature or task into actionable steps"
 
 2. **Identify affected repos.** Determine which repos need changes (core/, ui/, ssi/, infra/, etc.) and what kind of changes (API, UI, database, infrastructure).
 
-3. **Check architecture.** Read `copilot/.github/shared/architecture-cheatsheet.instructions.md` for relevant patterns, especially:
+3. **Check architecture.** Read `.gemini/styleguide.md` for relevant patterns, especially:
    - Request routing (UI → API proxy → FastAPI)
    - Store/factory patterns
    - Worker/job patterns for background tasks

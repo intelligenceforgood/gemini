@@ -31,7 +31,7 @@ Start a platform hardening work session. Load the review, execution plan, and gu
 
 4. **Load relevant context.** Based on the next task's repo(s), read:
    - The relevant source files referenced in the review finding
-   - `copilot/.github/shared/architecture-cheatsheet.instructions.md` if the task touches Core/SSI/UI integration
+   - `.gemini/styleguide.md` if the task touches Core/SSI/UI integration
    - Repo memory (`/memories/repo/`) for lessons learned
 
 5. **Present the work plan.** Show:

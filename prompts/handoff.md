@@ -7,7 +7,7 @@ description: "[Planner] Produce a Task Manifest ready to hand to the Executor"
 
 Turn the current plan (from `/plan-work`, a sprint task, or the active todo list) into a self-contained **Task Manifest** the Executor can follow without replanning.
 
-Read `copilot/.github/shared/handoff-manifest.instructions.md` for the full manifest schema and rules.
+Read `.gemini/styleguide.md` for the full manifest schema and rules.
 
 ## Steps
 
@@ -38,3 +38,4 @@ Read `copilot/.github/shared/handoff-manifest.instructions.md` for the full mani
    - Print the manifest path.
    - Print a 3–5 bullet summary of scope.
    - Remind the user: **"Start a fresh chat, switch to the Executor model, and run `/execute-manifest <path>`."** A fresh session strips Planner thinking-out-loud from the history, which meaningfully reduces input tokens on the Executor side.
+Executor side.
