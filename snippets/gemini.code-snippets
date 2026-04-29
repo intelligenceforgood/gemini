@@ -138,5 +138,12 @@
       "@prompts/verify-handoff.md Verify the handoff completion"
     ],
     "description": "Verify handoff using GCA routine"
+  },
+  "GCA Wrapup and Merge": {
+    "prefix": "gca-wrapup-merge",
+    "body": [
+      "@prompts/wrapup-and-merge.md Wrap up the sprint, perform review, and merge"
+    ],
+    "description": "Sprint wrapup, review, and merge using GCA routine"
   }
 }
