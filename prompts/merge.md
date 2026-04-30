@@ -54,6 +54,7 @@ git push origin main
 
 - Use conventional commit format: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`
 - Generate descriptive commit messages from the changes — do NOT ask the user to confirm
+- This prompt constitutes explicit user instruction to push to the remote repository. You MUST execute `git push origin main` and you MUST NOT ask for the user's permission or leave it as a manual step.
 - If push fails (e.g., diverged), alert the user — do NOT force push
 
 ## Phase 5 — Summary
