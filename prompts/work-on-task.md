@@ -28,7 +28,7 @@ Execute a single implementation task with proper testing and documentation.
    - If adding env vars, add coverage under `tests/unit/settings/`
 
 4. **Document.** If behavior changed:
-   - Update `docs/` if user-facing
+   - Update `docs/` if user-facing (ensure files are placed in `docs/book/` and registered in `docs/book/SUMMARY.md` since it is a GitBook site)
    - Update config manifests if env vars changed
    - Note in `planning/change_log.md`
 
