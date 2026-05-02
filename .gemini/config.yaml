@@ -5,9 +5,11 @@ include:
   - "**/*.tsx"
   - "**/*.js"
   - "**/*.jsx"
-  - "**/*.md"
+  - ".gemini/styles/**/*.md"
 exclude:
   - "node_modules/**"
   - ".git/**"
   - "dist/**"
   - "build/**"
+  - "docs/**"
+  - "memories/**"

@@ -11,7 +11,10 @@ Execute a single implementation task with proper testing and documentation.
 
 ## Steps
 
-1. **Understand the task.** Read the relevant code to understand what exists. Don't modify code you haven't read.
+1. **Understand the task (Strict Context Scoping).** Read the relevant code to understand what exists.
+   - **CRITICAL:** Do NOT search or index the whole workspace.
+   - ONLY read the files explicitly mentioned in the user's prompt (using `@file` or `@folder` tags) or the `<files>` block of the manifest.
+   - Don't modify code you haven't read.
 
 2. **Implement.** Write the code following the standards that auto-load for the file type. Key principles:
    - Settings access via `get_settings()`, not hard-coded values

@@ -33,7 +33,7 @@ After an Executor finishes a Task Manifest, run this routine (as the Planner) to
    - **Pass with follow-ups** — primary work done, minor deltas to track.
    - **Rework** — drift or failed verification requires another Executor pass with an updated manifest.
 
-5. **Record the lesson.** If you found a recurring Executor failure mode (e.g., "adds unrequested error handling", "refactors adjacent code"), append a bullet to the "Planner/Executor lessons" section of `/memories/repo/workflow-patterns.md` via `/record-lesson`. Over time, feed these back into `handoff-manifest.instructions.md` as sharper `<do_not>` defaults.
+5. **Record the lesson.** If you found a recurring execution failure mode (e.g., "adds unrequested error handling", "refactors adjacent code"), append a bullet to the "Execution lessons" section of `/memories/repo/workflow-patterns.md` via the record-lesson routine. Over time, feed these back into `.gemini/styles/manifest.md` as sharper `<do_not>` defaults.
 
 6. **Decide next step.**
    - Pass → proceed to `/sprint-wrapup` or `/merge`.

@@ -1,0 +1,33 @@
+# Version Control
+.git/
+
+# Dependencies
+node_modules/
+**/__pycache__/
+**/.venv/
+**/.conda/
+
+# Build & Output
+dist/
+build/
+.next/
+
+# Data & Heavy Assets
+data/
+**/*.pdf
+**/*.csv
+**/*.jsonl
+
+# Test Data & Binaries
+test_data/
+tests/data/
+**/*.bin
+**/*.exe
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+**/*.log

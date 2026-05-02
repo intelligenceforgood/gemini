@@ -7,4 +7,4 @@
 - Are we using mocks or stubs?
 
 ## 2. Generated Test Code
-Please output the exact test code using `pytest` (for Python) or `vitest/jest` (for TypeScript), strictly following the styles in `.gemini/styleguide.md`.
+Please output the exact test code using `pytest` (for Python) or `vitest/jest` (for TypeScript), strictly following the relevant language style in `.gemini/styles/`.

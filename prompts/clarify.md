@@ -36,4 +36,4 @@ You (the Executor) are blocked on an ambiguity or contradiction in the Task Mani
 
 4. **Do not keep working.** Do not commit speculative changes. Leave the workspace in a clean state (either fully revert the in-progress step, or leave it on a scratch branch and say so in the report).
 
-5. **Tell the user to switch to the Planner model** and feed this block back in; the Planner will update the manifest (bumping its version) or send a targeted instruction.
+5. **Tell the user to turn Agent Mode OFF** (to save quota) and feed this block back in; the Planner will update the manifest (bumping its version) or send a targeted instruction.

@@ -13,7 +13,7 @@ description: "[Planner] Break a feature or task into actionable steps"
 
 2. **Identify affected repos.** Determine which repos need changes (core/, ui/, ssi/, infra/, etc.) and what kind of changes (API, UI, database, infrastructure).
 
-3. **Check architecture.** Read `.gemini/styleguide.md` for relevant patterns, especially:
+3. **Check architecture.** Read `.gemini/styles/architecture.md` and the specific language styleguide in `.gemini/styles/` corresponding to the affected repos (e.g., `python.md`, `typescript.md`). Look for relevant patterns, especially:
    - Request routing (UI → API proxy → FastAPI)
    - Store/factory patterns
    - Worker/job patterns for background tasks
@@ -22,6 +22,7 @@ description: "[Planner] Break a feature or task into actionable steps"
    - Order by dependency (database first, then API, then UI)
    - Each step should be independently testable
    - Flag steps that require manual actions (migrations, deploys)
+   - **CRITICAL**: Each step MUST explicitly list the exact files to be modified using `@file:path/to/file` or `@folder:path/to/folder` tags to ensure subsequent execution is tightly scoped.
 
 5. **Identify risks.** Note:
    - Breaking changes to existing APIs or schemas

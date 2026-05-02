@@ -16,9 +16,10 @@ applyTo: "**/*.py"
 - **Settings:** Always via `get_settings()`, not hard-coded values. Override via env vars, not code.
 - **Stores:** Use factories (e.g., `factories.py`) — do not instantiate stores directly.
 - **TYPE_CHECKING guard:** For expensive runtime-only imports used solely as types (e.g., Playwright `Page`), guard with `if TYPE_CHECKING:`.
+
 ---
-applyTo: "**/*.ts,**/*.tsx,**/*.jsx"
----
+
+## applyTo: "**/\*.ts,**/_.tsx,\*\*/_.jsx"
 
 # TypeScript / React Standards
 
@@ -33,9 +34,10 @@ applyTo: "**/*.ts,**/*.tsx,**/*.jsx"
 - **Null handling:** Prefer `undefined` over `null`. Use `?.` and `??`.
 - **No manual casing translation.** Use framework-native serialization.
 - **HTML/CSS:** Semantic HTML. Keyboard accessibility. `alt` on images. CSS Modules preferred. No `!important`.
+
 ---
-applyTo: "**/*.tf,**/*.tfvars"
----
+
+## applyTo: "**/\*.tf,**/\*.tfvars"
 
 # Terraform / HCL Standards
 
@@ -48,9 +50,10 @@ applyTo: "**/*.tf,**/*.tfvars"
 - **Target dev first.** Never apply to prod without a successful dev deployment.
 - **State:** Use GCS remote state.
 - **Auth:** Impersonate service account with `gcloud auth application-default login`.
+
 ---
-applyTo: "**/settings*.toml,**/settings*.py,**/.env*,**/pyproject.toml"
----
+
+## applyTo: "**/settings\*.toml,**/settings*.py,\*\*/.env*,\*\*/pyproject.toml"
 
 # Settings & Configuration Standards
 
@@ -64,9 +67,10 @@ applyTo: "**/settings*.toml,**/settings*.py,**/.env*,**/pyproject.toml"
   2. Update config documentation/manifests
   3. Run local smoke test before cloud deployment
 - **.env files:** `UPPER_SNAKE_CASE` keys. Non-public secrets go in `.env.local` (gitignored).
+
 ---
-applyTo: "*"
----
+
+## applyTo: "\*"
 
 # Merge & Commit Discipline
 
@@ -121,9 +125,10 @@ done
 
 If any repo is dirty, diagnose whether it's a formatter artifact (commit it) or
 an unintended change (revert it) before declaring the merge complete.
+
 ---
-applyTo: "ui/packages/sdk/**,ui/apps/web/**"
----
+
+## applyTo: "ui/packages/sdk/**,ui/apps/web/**"
 
 # UI / SDK Build Checklist
 
@@ -152,10 +157,9 @@ Before staging UI changes for merge, run in order:
 2. `pnpm lint` — catches unused imports, undeclared vars
 3. `pnpm build` — catches type errors, missing mock stubs, invalid union values
 
-All three must pass. Do not rely on editor diagnostics alone — `pnpm build` is the source of truth.
----
-applyTo: "**/*.sql,**/etl*.py,**/bigquery/**"
----
+## All three must pass. Do not rely on editor diagnostics alone — `pnpm build` is the source of truth.
+
+## applyTo: "**/\*.sql,**/etl\*.py,**/bigquery/**"
 
 # BigQuery & ETL Standards
 
@@ -177,9 +181,10 @@ applyTo: "**/*.sql,**/etl*.py,**/bigquery/**"
 
 - **BQ tables need delete + recreate after significant schema changes.** Terraform can't remove or rename columns in-place. `bq rm -f` the tables, then `terraform apply` to recreate.
 - **BigQuery dataset `access` blocks replace all defaults.** Always include the three default `special_group` entries (`projectOwners`, `projectWriters`, `projectReaders`) alongside custom grants.
+
 ---
-applyTo: "ml/containers/train-*/**,ml/scripts/submit_*.py,ml/src/ml/training/**"
----
+
+## applyTo: "ml/containers/train-_/\*\*,ml/scripts/submit\__.py,ml/src/ml/training/\*\*"
 
 # ML Training Workflow Standards
 
@@ -209,6 +214,7 @@ applyTo: "ml/containers/train-*/**,ml/scripts/submit_*.py,ml/src/ml/training/**"
 **Never iterate via cloud submissions.** Each build→push→submit→wait cycle takes ~10 minutes. Instead:
 
 1. Download a small sample once:
+
    ```bash
    mkdir -p /tmp/xgb-test/data
    gsutil cat gs://i4g-ml-data/datasets/classification/v1/train.jsonl | head -100 > /tmp/xgb-test/data/train.jsonl
@@ -218,6 +224,7 @@ applyTo: "ml/containers/train-*/**,ml/scripts/submit_*.py,ml/src/ml/training/**"
    ```
 
 2. Run the script directly (~2s feedback):
+
    ```bash
    conda run -n ml python containers/train-xgboost/train.py \
      --config /tmp/xgb-test/classification_xgboost.yaml \
@@ -230,6 +237,7 @@ applyTo: "ml/containers/train-*/**,ml/scripts/submit_*.py,ml/src/ml/training/**"
 ## Monitoring Submitted Jobs
 
 Poll pipeline state via the Python SDK (gcloud CLI doesn't have `pipeline-jobs describe`):
+
 ```python
 from google.cloud import aiplatform
 aiplatform.init(project="i4g-ml", location="us-central1")
@@ -238,14 +246,16 @@ print(job.state)  # 3=RUNNING, 4=SUCCEEDED, 5=FAILED
 ```
 
 To get the inner CustomJob ID from a failed pipeline, check the outer job logs for the `resource.labels.job_id` in the error URL, then pull errors with:
+
 ```bash
 gcloud logging read 'resource.type="ml_job" resource.labels.job_id="<id>" severity>=DEFAULT' \
   --project=i4g-ml --format='value(timestamp, textPayload)' --order=asc --limit=500 2>&1 \
   | grep -A5 -E "Traceback|Error:|raise "
 ```
+
 ---
-applyTo: "**/*.py"
----
+
+## applyTo: "\*_/_.py"
 
 # Ruff Pitfalls
 
@@ -260,6 +270,7 @@ Common ruff violations encountered in this codebase and how to handle them.
 - **UP037 — quoted type annotations.** Remove quotes from annotations when `from __future__ import annotations` is not needed (Python 3.11+ with union syntax).
 - **E501 — line too long.** Break long `if` conditions into parenthesized multi-line format. Break long strings with implicit concatenation.
 - **Redundant except clauses.** `except (SpecificError, Exception)` is redundant — `Exception` subsumes `SpecificError`. Catch the specific exception only.
+
 # General Coding Guidelines
 
 These are the shared coding standards referenced by `.github/copilot-instructions.md`
@@ -421,307 +432,7 @@ ReviewStore`). Relative imports only within the same sub-package.
   style conformance (including `pnpm format` for UI, `terraform fmt` for infra),
   remove dead code, ensure tests/docs reflect behavior across all repositories,
   and confirm deployment instructions (e.g., Cloud Run) are accurate.
-# Architecture Cheat Sheet
 
-Dense reference for the i4g multi-root workspace. Absorb before every coding session to avoid wrong assumptions about routing, auth, data flow, and storage.
-
----
-
-## 1. Request Routing (UI → Core → SSI)
-
-### Three-layer proxy chain
-
-```
-Browser (port 3000)
-  ↓  href="/api/..."  or  SDK fetch("/api/...")
-Next.js (App Router, port 3000)
-  ↓  server-side fetch to I4G_API_URL (default http://127.0.0.1:8000)
-Core FastAPI (port 8000)
-  ↓  (for SSI) HTTP POST to SSI Cloud Run Service
-SSI FastAPI (port 8100 locally; deployed as Cloud Run Service `ssi-svc` in cloud)
-```
-
-### Next.js API routes — two patterns
-
-| Pattern              | Location                                                               | Purpose                                                                                                                             |
-| -------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **Dedicated routes** | `ui/apps/web/src/app/api/ssi/*`, `api/search/*`, `api/reviews/*`, etc. | Custom proxy logic (request normalization, response shaping, error handling). Always preferred when they exist.                     |
-| **Catch-all proxy**  | `ui/apps/web/src/app/api/[...path]/route.ts`                           | Generic pass-through to core API. Forwards any `GET/POST/PUT/DELETE/PATCH` to `{I4G_API_URL}/{path}`. No special response handling. |
-
-### Critical URL rule for browser-facing links
-
-**Core API returns API-relative paths** (e.g., `/cases/{id}/evidence/{doc_id}`).
-**Browser links MUST be prefixed with `/api`** so they route through the Next.js proxy.
-Never generate absolute `http://localhost:8000/...` URLs in API responses — the browser cannot reach the core API directly in cloud.
-
-```
-Core returns:  url="/cases/{id}/evidence/{doc_id}"
-UI renders:    href="/api/cases/{id}/evidence/{doc_id}"
-                     ^^^^  ← prefix added by UI
-Browser hits:  localhost:3000/api/cases/{id}/evidence/{doc_id}
-Proxy routes:  → localhost:8000/cases/{id}/evidence/{doc_id}
-```
-
-### SDK client URL resolution
-
-| Context                    | baseUrl                                                   | Mechanism                                       |
-| -------------------------- | --------------------------------------------------------- | ----------------------------------------------- |
-| Server component (SSR)     | `process.env.I4G_API_URL` (e.g., `http://127.0.0.1:8000`) | Direct to core — no proxy needed                |
-| Client component (browser) | `"/api"`                                                  | Relative — goes through Next.js catch-all proxy |
-
-Source: `ui/apps/web/src/lib/i4g-client.ts` → `resolveClient()`.
-
-### SSI-specific Next.js API routes
-
-| Browser path                   | Next.js route file                     | Proxies to (core API)                                      | Notes                                               |
-| ------------------------------ | -------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------- |
-| `/api/ssi/investigate`         | `api/ssi/investigate/route.ts`         | Core `POST /investigations/ssi`                            | Core orchestrates; triggers SSI service              |
-| `/api/ssi/investigate/{id}`    | `api/ssi/investigate/[id]/route.ts`    | Core `GET /tasks/{id}`                                     | Core is single source of truth for task status       |
-| `/api/ssi/report/{id}`         | `api/ssi/report/[id]/route.ts`         | Core `GET /investigations/ssi/{id}/report.pdf`                         | Handles GCS 307 redirects, sets Content-Disposition |
-| `/api/ssi/investigations`      | `api/ssi/investigations/route.ts`      | Core `GET /investigations/ssi/history`                                 | Passes query params                                 |
-| `/api/ssi/investigations/{id}` | `api/ssi/investigations/[id]/route.ts` | Core `GET /investigations/ssi/{id}`                                    | Direct proxy                                        |
-| `/api/ssi/wallets`             | `api/ssi/wallets/route.ts`             | Core `GET /investigations/ssi/wallets`                                 | Direct proxy                                        |
-
-### eCX proxy routes (direct to SSI — require `SSI_API_URL`)
-
-The eCX proxy routes forward **directly to ssi-svc** (not through core). They use `resolveSsiUrl()` from `ui/apps/web/src/lib/server/ssi-proxy.ts`, which reads `SSI_API_URL`. In cloud, this env var is injected via Terraform (`module.run_ssi_service[0].uri`). Auth is handled by `ssiHeaders()` (OIDC identity token with ssi-svc URL as audience).
-
-| Browser path                          | Next.js route file                                    | Proxies to (SSI)                       |
-| ------------------------------------- | ----------------------------------------------------- | -------------------------------------- |
-| `/api/ssi/ecx/feed`                   | `api/ssi/ecx/feed/route.ts`                           | SSI `GET /ecx/feed`                    |
-| `/api/ssi/ecx/polling-status`         | `api/ssi/ecx/polling-status/route.ts`                 | SSI `GET /ecx/polling-status`          |
-| `/api/ssi/ecx/submissions`            | `api/ssi/ecx/submissions/route.ts`                    | SSI `GET /ecx/submissions`             |
-| `/api/ssi/ecx/submissions/{id}/approve` | `api/ssi/ecx/submissions/[id]/approve/route.ts`     | SSI `POST /ecx/submissions/{id}/approve` |
-| `/api/ssi/ecx/submissions/{id}/reject`  | `api/ssi/ecx/submissions/[id]/reject/route.ts`      | SSI `POST /ecx/submissions/{id}/reject`  |
-| `/api/ssi/ecx/submissions/{id}/retract` | `api/ssi/ecx/submissions/[id]/retract/route.ts`     | SSI `POST /ecx/submissions/{id}/retract` |
-| `/api/ssi/ecx/investigate/{id}`       | `api/ssi/ecx/investigate/[id]/route.ts`               | SSI `POST /ecx/investigate/{id}`       |
-| `/api/ssi/ecx/stats/*`                | `api/ssi/ecx/stats/*/route.ts`                        | SSI `GET /ecx/stats/*`                 |
-
-### Core API router mounts (prefix map)
-
-| Prefix                 | Router file             | Key endpoints                                                             |
-| ---------------------- | ----------------------- | ------------------------------------------------------------------------- |
-| `/cases`               | `cases.py`              | CRUD, timeline, detail                                                    |
-| `/cases/{id}/evidence` | `evidence.py`           | Upload, list, download evidence files                                     |
-| `/investigations/ssi`  | `ssi_investigations.py` | `/history`, `/active`, `/{scan_id}`                                       |
-| `/investigations/ssi`  | `ssi_evidence.py`       | `/{scan_id}/report.pdf`, `/evidence-bundle`, `/lea-package`               |
-| `/investigations/ssi`  | `ssi_wallets.py`        | `/wallets`, `/{scan_id}/wallets.csv`, `/{scan_id}/wallets.xlsx`           |
-| `/investigations/ssi`  | `ssi_playbooks.py`      | Playbook CRUD (prefix: `/playbooks/ssi`)                                  |
-| `/investigations`      | `investigations.py`     | `POST /investigations/ssi` (trigger), `GET /investigations/ssi/{task_id}` |
-| `/reviews`             | `review.py`             | Search, history, saved searches, case actions                             |
-| `/tasks`               | `tasks.py`              | `GET /tasks/{task_id}` — poll background task status                      |
-| `/taxonomy`            | `taxonomy.py`           | Fraud taxonomy CRUD                                                       |
-
-**Registration order matters** — SSI wallets/evidence routers are registered before `ssi_investigations` to prevent the `/{scan_id}` catch-all from swallowing `/wallets`, etc.
-
----
-
-## 2. Auth Model
-
-### Local environment (`I4G_ENV=local`)
-
-**All auth is bypassed.** `require_token()` returns `{"username": "local-dev", "role": "admin"}` without checking any header. No API key, no JWT, no IAP. Do NOT debug 404s or 500s as auth issues in local env.
-
-### Cloud environment (`I4G_ENV=dev` or `prod`)
-
-- **IAP (Identity-Aware Proxy)**: Fronts Cloud Run services. Browser → IAP → Cloud Run.
-- **API Key**: `X-API-KEY` header validated by `require_token()`.
-- **JWT**: Google Identity Platform OIDC tokens validated by `require_token()`.
-- **Next.js**: Server-side API routes inject IAP headers via `getIapHeaders()` before proxying to core.
-
-### Key rule
-
-**Never assume auth is the cause of errors in local dev.** If a request returns 404 or 500 locally, the issue is routing, missing data, or code bugs — not authentication.
-
----
-
-## 3. Storage & Evidence
-
-### Storage backends by environment
-
-| Category      | Local                        | Cloud                |
-| ------------- | ---------------------------- | -------------------- |
-| Relational    | SQLite (`data/i4g_store.db`) | Cloud SQL PostgreSQL |
-| Vector        | Chroma (`data/chroma_store`) | Vertex AI Search     |
-| Blob/evidence | Local FS (`data/evidence/`)  | GCS buckets          |
-| SSI scans     | Same shared DB (`i4g_store.db`) | Same Cloud SQL instance |
-
-### Evidence file flow
-
-```
-SSI orchestrator → writes to data/evidence/{case_id}/
-  ├── report.pdf, investigation.json, screenshots, etc.
-  └── Updates site_scans.evidence_path = local path or gs:// URI
-
-Core evidence endpoints:
-  GET /investigations/ssi/{scan_id}/report.pdf
-    → Local: serves from evidence_path/report.pdf
-    → Cloud: 307 redirect to GCS signed URL
-
-  GET /cases/{case_id}/evidence/{doc_id}
-    → Serves from EvidenceStorage (abstracts FS vs GCS)
-    → Requires source_documents row with matching doc_id
-```
-
-### SSI evidence storage layout
-
-```
-data/evidence/{case_id}/
-  ├── investigation.json, report.md, report.pdf
-  ├── stix_bundle.json, wallet_manifest.json, evidence.zip
-  ├── passive/ (screenshot.png, dom.html, network.har, whois.json, etc.)
-  └── active/  (session_log.json, screenshots/, wallets/)
-```
-
----
-
-## 4. LLM Auth (Gemini API)
-
-### Auth modes (google-genai SDK)
-
-Both Core and SSI use the `google-genai` SDK to call Gemini models. Two auth modes exist:
-
-| Mode            | Setting                     | SDK call                                     | Billing target                        |
-| --------------- | --------------------------- | -------------------------------------------- | ------------------------------------- |
-| **API key**     | `gemini_api_key` is set     | `genai.Client(api_key=key)`                  | GCP project that owns the API key     |
-| **Vertex AI**   | `gemini_api_key` is empty   | `genai.Client(vertexai=True, project=..., location=...)` | Vertex AI service in the GCP project  |
-
-**API-key auth is preferred in cloud.** It routes billing through the non-profit's GCP billing account and avoids AI Studio cross-billing issues.
-
-### Secret Manager wiring
-
-| Service    | Secret name       | Env var injected by Terraform         |
-| ---------- | ----------------- | ------------------------------------- |
-| Core       | `gemini-api-key`  | `I4G_LLM__GEMINI_API_KEY`            |
-| SSI        | `gemini-api-key`  | `SSI_LLM__GEMINI_API_KEY`            |
-
-### Creating a Gemini API key
-
-One key serves both Core and SSI (bound to `sa-app`, shared via Secret Manager).
-
-1. Go to [GCP Console → APIs & Services → Credentials](https://console.cloud.google.com/apis/credentials) for the target project.
-2. **Create Credentials → API key**.
-3. Enter name (e.g., `gemini-api-key-dev`).
-4. Check **Authenticate API calls through a service account** → select `sa-app@<PROJECT_ID>.iam.gserviceaccount.com`.
-5. Under **Select API restrictions**, select **Gemini API** (appears after step 4).
-6. Click **Create** and copy the key value.
-7. Store in Secret Manager:
-   ```bash
-   echo -n "<YOUR_API_KEY>" | gcloud secrets versions add gemini-api-key \
-     --data-file=- --project=<PROJECT_ID>
-   ```
-
-> Full details (rotation, troubleshooting): `core/docs/runbooks/gemini_api_key.md`.
-
-### Fallback behavior
-
-If `gemini_api_key` is empty/None, the code falls back to Vertex AI Application Default Credentials (`vertexai=True`). This still works but routes through `aiplatform.googleapis.com` instead of `generativelanguage.googleapis.com`.
-
----
-
-## 5. SSI ↔ Core Integration
-
-### Direct Database Writes (`ssi/src/ssi/store/scan_store.py`)
-
-SSI writes investigation results directly to the shared database via `ScanStore.create_case_record()`:
-
-```
-create_case_record(scan_id, result, dataset)
-  ├── INSERT cases            (case record + description + dedup via content hash)
-  ├── INSERT scam_records     (search cache — no classification_result/tags)
-  ├── INSERT review_queue     (analyst queue entry)
-  ├── _insert_timeline_events()   (review_actions rows)
-  ├── _insert_evidence_documents() (source_documents rows)
-  └── UPDATE site_scans       (link scan → case)
-```
-
-### Case metadata from SSI
-
-When `ScanStore` creates a case, it stores `ssi_investigation_id` in case metadata:
-
-```python
-"metadata": {
-    "ssi_investigation_id": str(scan_id),
-    "scan_type": result.scan_type,
-    ...
-}
-```
-
-This ID links the case back to SSI's `site_scans` table and is used to construct evidence download URLs.
-
-### SSI investigation routing (unified — all environments)
-
-Investigation lifecycle routes **always** go through Core, regardless of environment.
-Core is the orchestrator: it creates task records, performs dedup, triggers SSI, and tracks status.
-This ensures manual (UI) and automated (case-intake) triggers share one code path.
-
-| Operation               | Flow                                                                                                             | Notes                                                                     |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| Investigation trigger   | UI → Next.js `/api/ssi/investigate` → Core `POST /investigations/ssi` → SSI Service `POST /trigger/investigate`  | Core creates task, runs dedup, dispatches to SSI                          |
-| Status polling          | UI → Next.js `/api/ssi/investigate/{id}` → Core `GET /tasks/{id}`                                                | SSI pushes updates via `TaskStatusReporter`; Core is single status source |
-| Evidence download       | UI → Next.js `/api/ssi/report/{id}` → Core `GET /investigations/ssi/{id}/report.pdf`                             | Local: serves from FS; Cloud: 307 → GCS signed URL                       |
-| Automated trigger       | Core case-processing → Core `POST /investigations/ssi` → SSI Service                                             | Same endpoint, no UI involvement                                          |
-
-**Local dev requirement:** Core must have `I4G_SSI__SERVICE_URL=http://localhost:8100` so it can reach the SSI service.
-
----
-
-## 6. Database Schema (Key Tables)
-
-### Core tables (`src/i4g/store/sql.py`, METADATA)
-
-- `cases` — Central entity, one per scam report. PK: `case_id`. Carries classification, status, tags, metadata JSON.
-- `source_documents` — Evidence chunks. FK: `case_id`. Has `document_id` (UUID), `title`, `mime_type`, `source_url`.
-- `review_queue` — Analyst work queue. Links to `case_id`. Has priority, status, assignment, classification results.
-- `review_actions` — Audit log. FK: `review_id`. Stores `actor`, `action`, `payload` (JSON), `created_at`.
-- `indicators` — Fraud indicators (wallets, phones, URLs). FK: `case_id`. Typed with confidence scores.
-- `entities` — Extracted entities (persons, emails). FK: `case_id`.
-- `saved_searches` — Persisted analyst queries.
-- `dossier_queue` — Report generation tasks.
-- `intake_records/attachments/jobs` — Victim submission pipeline.
-
-### SSI tables (shared DB — defined in both `core/src/i4g/store/sql.py` and `ssi/src/ssi/store/sql.py`)
-
-- `site_scans` — Investigation metadata. PK: `scan_id`. Has `case_id` FK, `evidence_path`, `scan_status`, `risk_score`, `classification` JSON.
-- `harvested_wallets` — Wallet addresses. FKs: `case_id`, `scan_id`.
-- `agent_sessions` — Per-action audit trail for browser agent.
-- `pii_exposures` — What PII the scam site collects.
-
-### Key relationships
-
-```
-cases ──1:N──▶ source_documents (evidence files)
-cases ──1:N──▶ indicators (wallets, IPs, etc.)
-cases ──1:N──▶ entities (persons, emails)
-review_queue ──1:N──▶ review_actions (timeline)
-cases ──1:1──▶ site_scans (SSI investigation)
-site_scans ──1:N──▶ harvested_wallets
-```
-
----
-
-## 7. Common Pitfalls (Do NOT Repeat)
-
-1. **404 on artifact links** — Core returns `/cases/{id}/evidence/{doc_id}`. UI must prefix with `/api` for browser-facing `<a href>`. Without `/api`, the browser hits a nonexistent Next.js page route.
-
-2. **Assuming auth issues locally** — `I4G_ENV=local` bypasses ALL auth. A 404 or 500 is never an auth problem locally. Check: route existence, data existence, correct URL path.
-
-3. **Duplicate PDF URLs** — SSI PDF report has TWO paths that reach the same core endpoint:
-   - Dedicated: `/api/ssi/report/{scan_id}` (preferred — handles GCS redirects, sets Content-Disposition)
-   - Catch-all: `/api/investigations/ssi/{scan_id}/report.pdf` (also works but less robust)
-     Always use the dedicated route for consistency.
-
-4. **SSI investigation routes always go through Core** — Investigation trigger and status polling are always proxied via Core API, not direct to SSI. This applies to both local and cloud. Core orchestrates the workflow (task creation, dedup, dispatch, status tracking). Only eCX routes go direct to SSI. If adding new SSI investigation endpoints, route them through Core.
-
-5. **Router registration order** — SSI routers with specific paths (wallets, evidence) must be registered before the `/{scan_id}` catch-all. Changing order in `app.py` can break routing.
-
-6. **Server vs client component data** — Server components fetch from `I4G_API_URL` directly. Client components fetch from `/api/*` (proxied). URLs returned by the API are meant for the API, not the browser. When rendering links in server components, add the `/api` prefix.
-
-7. **Evidence storage abstraction** — `EvidenceStorage` abstracts local FS vs GCS. In local mode it uses `data/evidence/`. In cloud it uses GCS buckets with signed URLs. Never hardcode file paths — use the `EvidenceStorage` interface.
-
-8. **Case ≠ Review (and “cases” in the UI)** — `case_id` and `review_id` are different. `review_queue` now has a FK to `cases.case_id`. `cases` is the authoritative entity holding classification, description, metadata, and tags. `scam_records` is a write-through search cache only. `get_extended_case()` joins `review_queue` → `cases` (not `scam_records`). Timeline events (`review_actions`) are keyed by `review_id`, not `case_id`. The UI calls them **cases**; the API routes use `/reviews/` — this is an intentional alias. Don't rename one without the other.
-
-9. **TIFAP is NOT a separate service** — The Threat Intelligence & Fraud Analytics Platform reads from core's database via SQLAlchemy directly — no HTTP hop, no separate service, no dedicated Cloud Run service. There is no `/tifap/` API prefix. Campaign intelligence, entity stats, and analytics are served by existing core routers: `/intelligence/`, `/impact/`, `/campaigns/`, and `/exports/`. Do NOT create a TIFAP service or add a proxy route for it — the data access is intentionally in-process for performance.
 # Pre-Merge Review Checklist
 
 When the user requests a **pre-merge review**, execute every section below
@@ -865,9 +576,10 @@ After the review, produce a summary:
 3. **Test results** — pass/fail count and any skipped suites.
 4. **Remaining items** — anything that could not be auto-fixed and needs human
    decision.
+
 ---
-applyTo: "**"
----
+
+## applyTo: "\*\*"
 
 # Documentation Governance
 
@@ -895,14 +607,14 @@ A PR is **not ready to merge** until documentation is current. The reviewer is r
 
 Documentation ownership follows code ownership. The engineer who writes the code owns the doc update for that changeset. The tech lead for the affected component is the documentation reviewer.
 
-| Tier | Reviewer |
-|---|---|
-| 0 — System narrative | Chief Architect reviews any substantive change |
-| 1 — System architecture | CTO or Chief Architect |
-| 2 — Component TDD | Repo tech lead |
-| 3 — Operational guides | Repo tech lead or SRE lead |
-| 4 — End-user docs | CPO (editorial), tech lead (accuracy) |
-| 5 — Copilot intelligence | CTO |
+| Tier                     | Reviewer                                       |
+| ------------------------ | ---------------------------------------------- |
+| 0 — System narrative     | Chief Architect reviews any substantive change |
+| 1 — System architecture  | CTO or Chief Architect                         |
+| 2 — Component TDD        | Repo tech lead                                 |
+| 3 — Operational guides   | Repo tech lead or SRE lead                     |
+| 4 — End-user docs        | CPO (editorial), tech lead (accuracy)          |
+| 5 — Copilot intelligence | CTO                                            |
 
 ## Staleness Detection
 
@@ -947,9 +659,10 @@ When adding a new component (service, job, major subsystem):
 6. If it's a Cloud Run service/job: update `infra/docs/service_catalog.md`.
 7. If it has a scheduler: update `infra/docs/scheduler_inventory.md`.
 8. If it's user-facing: add a page to `docs/book/`.
+
 ---
-applyTo: "**/planning/handoffs/**,**/planning/tasks/**"
----
+
+## applyTo: "**/planning/handoffs/**,**/planning/tasks/**"
 
 # Task Manifest — Planner→Executor Handoff Contract
 
@@ -1093,9 +806,10 @@ Run `/clarify` — produce a short structured question and stop. Do not guess.
    - "Do not leave uncommitted files at end of session. If verification fails, commit a WIP with an explicit `[WIP]` prefix and stop for `/clarify`."
 
 ```
+
 ---
-applyTo: "**/osint/**,**/ingestion/phishdestroy/**,**/worker/jobs/merklemap_*.py,**/worker/jobs/phishdestroy_*.py,**/review.py,**/discoveries/**,**/actors/**"
----
+
+## applyTo: "**/osint/**,**/ingestion/phishdestroy/**,**/worker/jobs/merklemap\_\*.py,**/worker/jobs/phishdestroy\_\*.py,**/review.py,**/discoveries/**,**/actors/\*\*"
 
 # PhishDestroy Provider Gating (quota-gated skip contract)
 
@@ -1111,14 +825,14 @@ ingestion job, OSINT module, API route, and UI surface must follow so that:
 
 ## 1. Gated providers (as of Sprint 0)
 
-| Provider | Status | Keyed off | Funded? | Consumes |
-| --- | --- | --- | --- | --- |
-| `merklemap` | funded (dev key available) | `providers.merklemap.enabled` + `api_key` | yes | Sprint 1 merklemap tail |
-| `whoxy` | **budget TBD** | `providers.whoxy.enabled` + `api_key` | pending | Sprint 3 `whoxy_reverse.py` |
-| `ghunt` | ops-readiness TBD | `providers.ghunt.enabled` + cookie blob | pending | Sprint 3 `ghunt.py` |
-| `virustotal` | funded | `providers.virustotal.enabled` + `api_key` | yes | existing SSI |
-| `urlscan` | funded | `providers.urlscan.enabled` + `api_key` | yes | existing SSI |
-| `securitytrails` | budget TBD | `enrichment.securitytrails_api_key` | pending | existing enrichment |
+| Provider         | Status                     | Keyed off                                  | Funded? | Consumes                    |
+| ---------------- | -------------------------- | ------------------------------------------ | ------- | --------------------------- |
+| `merklemap`      | funded (dev key available) | `providers.merklemap.enabled` + `api_key`  | yes     | Sprint 1 merklemap tail     |
+| `whoxy`          | **budget TBD**             | `providers.whoxy.enabled` + `api_key`      | pending | Sprint 3 `whoxy_reverse.py` |
+| `ghunt`          | ops-readiness TBD          | `providers.ghunt.enabled` + cookie blob    | pending | Sprint 3 `ghunt.py`         |
+| `virustotal`     | funded                     | `providers.virustotal.enabled` + `api_key` | yes     | existing SSI                |
+| `urlscan`        | funded                     | `providers.urlscan.enabled` + `api_key`    | yes     | existing SSI                |
+| `securitytrails` | budget TBD                 | `enrichment.securitytrails_api_key`        | pending | existing enrichment         |
 
 When a provider's status is not "funded", the PRD acceptance metric(s) that depend on it
 (§10) are considered **deferred**, not failing. See §6.
@@ -1226,10 +940,9 @@ Rotation is a three-step sequence, identical for every provider:
 3. Restart the consuming service (`uvicorn` reload locally; Cloud Run rolls on next
    revision).
 
-Runbook bodies for each provider live in `copilot/docs/runbooks/` (Sprint 4 deliverable).
----
-applyTo: "**/ingestion/phishdestroy/**,**/worker/jobs/phishdestroy_*.py,**/worker/jobs/merklemap_*.py,**/osint/blocklist_aggregator.py,**/osint/merklemap_client.py,**/osint/ctlog_lookup.py,**/alembic/versions/phishdestroy_*.py"
----
+## Runbook bodies for each provider live in `copilot/docs/runbooks/` (Sprint 4 deliverable).
+
+## applyTo: "**/ingestion/phishdestroy/**,**/worker/jobs/phishdestroy\_\*.py,**/worker/jobs/merklemap*\*.py,**/osint/blocklist_aggregator.py,**/osint/merklemap_client.py,**/osint/ctlog_lookup.py,**/alembic/versions/phishdestroy*\*.py"
 
 # PhishDestroy Provenance Contract (frozen Sprint 0)
 
@@ -1258,15 +971,15 @@ Every `source_provenance` JSON column stores an object with exactly these fields
 
 ### Field rules
 
-| Field | Required | Type | Rule |
-| --- | --- | --- | --- |
-| `source` | yes | string | Dotted identifier, one of the values in §3. Never free text. |
-| `team` | conditional | string | Required for archive / actor data; omit for feeds not scoped to a team (e.g. merklemap, blocklist aggregator). |
-| `commit_sha` | yes | string | Full 40-char hex SHA of the upstream repo HEAD at ingest time. Pinned SHAs in §4. For live feeds (merklemap), use the `commit_sha` of the deployed **filter config**, not the feed. |
-| `record_id` | yes | string | Stable pointer to the exact source record. See §2. |
-| `ingested_at` | yes | string | RFC 3339 / ISO 8601 UTC with `Z` suffix. |
-| `ingest_job` | yes | string | Cloud Run job resource name, or CLI command name for local runs. |
-| `ingest_job_run_id` | no | string | Cloud Run execution ID when available. |
+| Field               | Required    | Type   | Rule                                                                                                                                                                                |
+| ------------------- | ----------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `source`            | yes         | string | Dotted identifier, one of the values in §3. Never free text.                                                                                                                        |
+| `team`              | conditional | string | Required for archive / actor data; omit for feeds not scoped to a team (e.g. merklemap, blocklist aggregator).                                                                      |
+| `commit_sha`        | yes         | string | Full 40-char hex SHA of the upstream repo HEAD at ingest time. Pinned SHAs in §4. For live feeds (merklemap), use the `commit_sha` of the deployed **filter config**, not the feed. |
+| `record_id`         | yes         | string | Stable pointer to the exact source record. See §2.                                                                                                                                  |
+| `ingested_at`       | yes         | string | RFC 3339 / ISO 8601 UTC with `Z` suffix.                                                                                                                                            |
+| `ingest_job`        | yes         | string | Cloud Run job resource name, or CLI command name for local runs.                                                                                                                    |
+| `ingest_job_run_id` | no          | string | Cloud Run execution ID when available.                                                                                                                                              |
 
 No extra keys. If you need more context, promote it to a first-class column.
 
@@ -1276,18 +989,18 @@ No extra keys. If you need more context, promote it to a first-class column.
 runs against the same `commit_sha` produce different `record_id` values for the same
 logical row, the rule is wrong and must be fixed before merge.
 
-| Source | `record_id` format |
-| --- | --- |
-| `phishdestroy.destroylist` | `sha256(normalized_indicator)` (hex) when sourced from `DestroyScammers/data/data.json`; `<path>#L<line>` when sourced from the standalone repo (not currently checked out). |
-| `phishdestroy.archive.iocs` | `<team>/iocs.json#<jsonpointer>` (RFC 6901) |
-| `phishdestroy.archive.chat` | `<team>/chat/<filename>#<message_index>` |
-| `phishdestroy.archive.damage` | `<team>/successful_thefts/<filename>#<jsonpointer>` |
-| `phishdestroy.archive.financial_damage` | `<team>/successful_thefts/result.json#<message_id>` |
-| `phishdestroy.actors` | `data.json#/<actor_key>` |
-| `phishdestroy.registrants` | `registrants.json#/<pivot_type>/<pivot_value>` |
-| `blocklist.<source>` | `sha256(normalized_indicator \| source)` (hex) |
-| `merklemap.tail` | `sha256(domain \| first_seen_unix)` (hex) |
-| `ctlog.crtsh` | `crtsh:<entry_id>` |
+| Source                                  | `record_id` format                                                                                                                                                           |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `phishdestroy.destroylist`              | `sha256(normalized_indicator)` (hex) when sourced from `DestroyScammers/data/data.json`; `<path>#L<line>` when sourced from the standalone repo (not currently checked out). |
+| `phishdestroy.archive.iocs`             | `<team>/iocs.json#<jsonpointer>` (RFC 6901)                                                                                                                                  |
+| `phishdestroy.archive.chat`             | `<team>/chat/<filename>#<message_index>`                                                                                                                                     |
+| `phishdestroy.archive.damage`           | `<team>/successful_thefts/<filename>#<jsonpointer>`                                                                                                                          |
+| `phishdestroy.archive.financial_damage` | `<team>/successful_thefts/result.json#<message_id>`                                                                                                                          |
+| `phishdestroy.actors`                   | `data.json#/<actor_key>`                                                                                                                                                     |
+| `phishdestroy.registrants`              | `registrants.json#/<pivot_type>/<pivot_value>`                                                                                                                               |
+| `blocklist.<source>`                    | `sha256(normalized_indicator \| source)` (hex)                                                                                                                               |
+| `merklemap.tail`                        | `sha256(domain \| first_seen_unix)` (hex)                                                                                                                                    |
+| `ctlog.crtsh`                           | `crtsh:<entry_id>`                                                                                                                                                           |
 
 ## 3. Allowed `source` values
 
@@ -1324,12 +1037,12 @@ These SHAs are the baseline for Sprint 1 / Sprint 2 ingestion. When re-ingesting
 newer upstream, bump the pin here, update `change_log.md`, and re-run the ingest job —
 idempotency (§5) will update rows in place.
 
-| Upstream repo | Local checkout | Pinned SHA | Pinned date |
-| --- | --- | --- | --- |
-| `github.com/phishdestroy/ScamIntelLogs` | `phishdestroy/ScamIntelLogs` | `83d0307420fcc865fcb8a34b8c454acbc6d56f1f` | 2026-03-01 |
-| `github.com/phishdestroy/DestroyScammers` | `phishdestroy/DestroyScammers` | `c40cbbf527dd9e5e232090346e1a8ceab32d1683` | 2025-11-30 |
-| `github.com/phishdestroy/destroylist` | `phishdestroy/DestroyScammers/data/data.json` (`registrants.json`) | see DestroyScammers SHA | — |
-| `github.com/phishdestroy/merklemap-cli` | `phishdestroy/merklemap-cli` | `550cb04aa633c000724c339ada085c59444d5b78` | 2024-10-06 |
+| Upstream repo                             | Local checkout                                                     | Pinned SHA                                 | Pinned date |
+| ----------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------ | ----------- |
+| `github.com/phishdestroy/ScamIntelLogs`   | `phishdestroy/ScamIntelLogs`                                       | `83d0307420fcc865fcb8a34b8c454acbc6d56f1f` | 2026-03-01  |
+| `github.com/phishdestroy/DestroyScammers` | `phishdestroy/DestroyScammers`                                     | `c40cbbf527dd9e5e232090346e1a8ceab32d1683` | 2025-11-30  |
+| `github.com/phishdestroy/destroylist`     | `phishdestroy/DestroyScammers/data/data.json` (`registrants.json`) | see DestroyScammers SHA                    | —           |
+| `github.com/phishdestroy/merklemap-cli`   | `phishdestroy/merklemap-cli`                                       | `550cb04aa633c000724c339ada085c59444d5b78` | 2024-10-06  |
 
 > The standalone `destroylist` repo is not checked out locally; the same domain list is
 > reachable through `DestroyScammers/data/data.json` and is covered by that SHA. If the
@@ -1367,7 +1080,7 @@ Downstream rules that key off this marker (automatically enforced by tests):
 
 - Dossier renderer redacts unless reader has `role=senior_analyst`.
 - Every read of a `sensitive` column emits an `audit_log.log_action` with actor identity
-  + `reason_code` (required — API rejects requests without one).
+  - `reason_code` (required — API rejects requests without one).
 - BigQuery export policy: sensitive columns land in a separate, access-restricted view.
 
 A unit test (`tests/unit/schema/test_sensitive_markers.py`) asserts the expected set of

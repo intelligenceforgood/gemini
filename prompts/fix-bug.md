@@ -13,9 +13,10 @@ Systematic bug investigation and fix workflow.
    - Read error messages, logs, or stack traces
    - Identify the failing code path
    - Check if there's a test that should have caught this
+   - **CRITICAL**: Use explicit `@file:path/to/log` or `@folder:path/to/component` tags. Do not rely on global scans to find logs or traces.
 
 2. **Root-cause analysis.** Trace the issue:
-   - Read the relevant source files (don't guess — read the code)
+   - Read the relevant source files using explicitly provided `@file` context (don't guess — read the code)
    - Check recent changes: `git log --oneline -10 -- <suspect-files>`
    - Look for common patterns: missing null checks, wrong env var, race condition, schema mismatch
 

@@ -41,7 +41,7 @@ After the review passes, verify the working tree is merge-ready for EVERY change
 
 ## Phase 4 — Commit and Push
 
-Follow `.gemini/styleguide.md` for all commit hygiene rules.
+Follow `.gemini/styles/workflow.md` for all commit hygiene rules.
 
 For each changed repo identified in Phase 1, execute the following to ensure they are merged simultaneously:
 

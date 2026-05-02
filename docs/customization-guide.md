@@ -30,17 +30,17 @@ If your team develops a new workflow that should be standardized, add it to the 
 
 ## Updating the Styleguide
 
-The `.gemini/styleguide.md` file is the master document for architectural and coding standards.
+The `.gemini/styles/` directory contains the master documents for architectural and coding standards.
 
-1.  **Edit `styleguide.md`**: When introducing a new technology (e.g., switching from `pytest` to `ward`, or updating a UI library), update the relevant section in `.gemini/styleguide.md`.
+1.  **Edit the relevant file**: When introducing a new technology (e.g., switching from `pytest` to `ward`), update the relevant domain file like `.gemini/styles/python.md`.
 2.  **Commit and Push**: Ensure these changes are reviewed via PR, as they will affect the behavior of GCA for all developers globally once pulled.
-3.  **Propagation**: Because project repositories use symlinks to reference this file, updates will immediately apply to all local developer environments the next time they pull the `gemini` repository.
+3.  **Propagation**: Because project repositories use symlinks to reference this directory, updates will immediately apply to all local developer environments the next time they pull the `gemini` repository.
 
 ## Repo-Specific Overrides (Local Context)
 
 While `gemini/` holds global standards, individual repositories often have unique requirements.
 
-Instead of polluting the global `styleguide.md`, add a `.gemini/context.md` or update the local `.gemini/config.yaml` *inside the specific repository* (e.g., `ui/.gemini/context.md`).
+Instead of polluting the global styles, add a `.gemini/context.md` or update the local `.gemini/config.yaml` *inside the specific repository* (e.g., `ui/.gemini/context.md`).
 
 When GCA is active in that repository, it will read both the symlinked global styleguide and the local context files, merging the instructions.
 

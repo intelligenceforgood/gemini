@@ -18,9 +18,11 @@ By leveraging standardized prompts, predefined routines, and consolidated archit
 ## 🚀 Quick Start Guide
 
 ### 1. Workspace Integration
+
 To leverage the framework, ensure the `gemini` repository is accessible alongside your target repositories.
 
 Add the `gemini` directory to your VSCode Workspace:
+
 ```json
 {
   "folders": [
@@ -31,16 +33,18 @@ Add the `gemini` directory to your VSCode Workspace:
 }
 ```
 
-### 2. Establish "Anchor" Context
-In each of your product repositories (e.g., `core/`, `ui/`, `infra/`), create a `.gemini` folder and symlink the global styleguide to ensure GCA automatically reads our platform standards:
+### 2. Establish "Anchor" Styles
+
+In each of your product repositories (e.g., `core/`, `ui/`, `infra/`), symlink the global styles directory to ensure GCA automatically reads our targeted platform standards:
 
 ```bash
 cd path/to/your/repo
-mkdir -p .gemini
-ln -s ../gemini/.gemini/styleguide.md .gemini/styleguide.md
+rm -rf .gemini/styles
+ln -s ../gemini/.gemini/styles .gemini/styles
 ```
 
 ### 3. Verify Setup
+
 Open the **Gemini Code Assist Chat** in VSCode and try a snippet:
 Type `gca-plan` and hit Enter. The prompt should expand to the content of `@prompts/plan-work.md`.
 
@@ -52,7 +56,7 @@ Type `gca-plan` and hit Enter. The prompt should expand to the content of `@prom
 gemini/
 ├── .gemini/
 │   ├── config.yaml             # Core GCA behavior and inclusion rules
-│   └── styleguide.md           # Unified I4G architectural & coding standards
+│   └── styles/                 # Unified I4G architectural & coding standards
 ├── docs/                       # GCA Framework Documentation Suite
 │   ├── cookbook.md             # Advanced workflow examples and patterns
 │   ├── customization-guide.md  # How to extend prompts and framework behavior
@@ -73,7 +77,7 @@ gemini/
 
 The `.gemini/` directory is the crucial link between GCA and our codebases.
 
-- **Global Enforcement**: The `.gemini/styleguide.md` file contains the extracted knowledge of all former Copilot instructions (Python, TS/React, Terraform, ML Workflows, etc.). By symlinking this file into your target repos, GCA inherently understands the overarching I4G rules without needing manual prompting.
+- **Global Enforcement**: The `.gemini/styles/` directory contains the extracted knowledge of all former Copilot instructions. By symlinking this directory into your target repos, GCA inherently understands the overarching I4G rules without needing manual prompting.
 - **Local Overrides**: Repositories can define their own local `.gemini/config.yaml` or `.gemini/context.md` files alongside the symlink. GCA intelligently merges the global platform rules with the specific, local nuances of the repository you are actively working in.
 
 ---
@@ -89,4 +93,4 @@ Ready to master the GCA workflow? Dive into the official documentation:
 
 ---
 
-*For support, issues, or suggestions regarding the GCA Productivity Framework, please open an issue in this repository.*
+_For support, issues, or suggestions regarding the GCA Productivity Framework, please open an issue in this repository._
