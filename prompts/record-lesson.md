@@ -22,6 +22,6 @@ Capture something learned during this session so future sessions benefit from it
    - Why it matters or what goes wrong without it (one line)
    - Example if helpful (code snippet or command)
 
-4. **Check for promotion.** If the same category now has 3+ similar lessons, suggest promoting the pattern to the appropriate file in `.gemini/styles/` so GCA applies it automatically.
+4. **Auto-Promote.** If the lesson is a critical workflow guardrail (e.g., GCA hallucinated due to a lack of strict `@file` tags) OR the same category now has 3+ similar lessons, **do not wait for permission**. Automatically edit and promote the pattern to the appropriate style guide in `.gemini/styles/` (such as `workflow.md` or `python.md`).
 
-5. **Confirm.** Tell the user what was recorded and where.
+5. **Confirm.** Tell the user what was recorded to the lessons-learned file, and explicitly state if it was also automatically promoted to a permanent style guide.

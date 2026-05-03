@@ -1,43 +1,24 @@
 ---
 agent: agent
-description: "[Either] Implement a specific task — code, test, document"
+description: "[Executor] Execute a specific task with explicitly scoped context."
 ---
 
 # Work on Task
 
-Execute a single implementation task with proper testing and documentation.
+Execute the given task efficiently while adhering to quota-saving strict file scoping.
 
-> **If a Task Manifest exists** (under `planning/handoffs/` or referenced by the user), prefer `/execute-manifest` instead — it has stricter scope discipline for Executor-model runs. Use `/work-on-task` for small tasks the Planner chose not to manifest, or when Planner and Executor are the same model.
+## Instructions
 
-## Steps
+1. **Scope Context (Strict):**
+   - **CRITICAL:** Do NOT scan or search the workspace.
+   - If the user has not explicitly tagged the target files (using `@file` or `@folder`) or does not have them open in their active editor tabs, **STOP** immediately and ask them to do so. Do not guess.
+   - Instruct the user to explicitly tag the relevant tech stack's style guide if they haven't already:
+     - For Python: Tag `@file:.gemini/styles/python.md`
+     - For TypeScript/React: Tag `@file:.gemini/styles/typescript.md`
 
-1. **Understand the task (Strict Context Scoping).** Read the relevant code to understand what exists.
-   - **CRITICAL:** Do NOT search or index the whole workspace.
-   - ONLY read the files explicitly mentioned in the user's prompt (using `@file` or `@folder` tags) or the `<files>` block of the manifest.
-   - Don't modify code you haven't read.
+2. **Execute:**
+   - Make the necessary code modifications strictly within the tagged files.
+   - Ensure the new code follows the rules defined in the explicitly tagged style guides.
 
-2. **Implement.** Write the code following the standards that auto-load for the file type. Key principles:
-   - Settings access via `get_settings()`, not hard-coded values
-   - Stores via factories in `src/i4g/services/factories.py`
-   - Type hints on every function, Google-style docstrings on public methods
-   - Specific exception handling (no bare `except:`)
-
-3. **Test.** Write or update tests for the changed logic:
-   - Unit tests under `tests/unit/`
-   - Run: `conda run -n i4g pytest tests/unit -x` (stop on first failure)
-   - If adding env vars, add coverage under `tests/unit/settings/`
-
-4. **Document.** If behavior changed:
-   - Update `docs/` if user-facing (ensure files are placed in `docs/book/` and registered in `docs/book/SUMMARY.md` since it is a GitBook site)
-   - Update config manifests if env vars changed
-   - Note in `planning/change_log.md`
-
-5. **Validate locally.** Run pre-commit hooks to catch formatting issues early:
-
-   ```
-   conda run -n i4g pre-commit run --files <changed-files>
-   ```
-
-6. **Update task checkboxes.** If working from an implementation plan or a tracking document in `planning/tasks/`, mark the completed task as `- [x]`.
-
-7. **Summarize.** Report what was done, tests that pass, and any follow-up items.
+3. **Verify:**
+   - Keep explanations lean and ensure no conversational fluff is introduced.

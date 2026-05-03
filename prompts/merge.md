@@ -10,7 +10,7 @@ This is the single combined routine — no need to run `/code-review` separately
 
 ## Phase 1 — Identify Changed Repositories
 
-1. **Scan the Workspace:** Check all sibling repositories in the parent directory (`../`) using `git status` to identify which repositories have uncommitted or staged changes. 
+1. **Identify Changes:** Do NOT scan the entire workspace autonomously. Ask the user to list the changed repositories or ask them to paste the output of `git status` across their repos.
    - Because the platform is implemented by multiple repos, they must be merged together to ensure the application remains in a consistent state.
 2. List all identified changed repositories before proceeding.
 
@@ -19,6 +19,7 @@ This is the single combined routine — no need to run `/code-review` separately
 For all changed repos identified in Phase 1:
 Execute every step of the code review routine (`@prompts/code-review.md`):
 code audit, quality gates, tests, docs/config check. Fix all issues found before proceeding.
+Crucially, strictly enforce all rules defined in `@file:.gemini/styles/ci-cd.md` and `@file:.gemini/styles/security.md`.
 
 Do NOT proceed to Phase 3 if any quality gate fails or tests have failures in ANY repo.
 

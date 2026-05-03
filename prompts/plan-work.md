@@ -5,7 +5,7 @@ description: "[Planner] Break a feature or task into actionable steps"
 
 # Plan Work
 
-**Role: Planner.** Take a feature request, task description, or user story and break it into implementable steps. This routine produces a plan; it does not implement. When the plan is ready, the user will either continue here (for small tasks) or run `/handoff` to produce a manifest for an Executor to pick up.
+**Role: Planner.** Take a feature request, task description, or user story and break it into implementable steps. This routine produces a plan; it does not implement. **Always save the resulting plan document as a new markdown file in the `planning/tasks/` directory.** When the plan is ready, the user will either continue here (for small tasks) or run `/handoff` to produce a manifest for an Executor to pick up.
 
 ## Steps
 
@@ -13,12 +13,12 @@ description: "[Planner] Break a feature or task into actionable steps"
 
 2. **Identify affected repos.** Determine which repos need changes (core/, ui/, ssi/, infra/, etc.) and what kind of changes (API, UI, database, infrastructure).
 
-3. **Check architecture.** Read `.gemini/styles/architecture.md` and the specific language styleguide in `.gemini/styles/` corresponding to the affected repos (e.g., `python.md`, `typescript.md`). Look for relevant patterns, especially:
+3. **Check architecture.** Ask the user to explicitly tag `@file:.gemini/styles/architecture.md` and the relevant language styleguide (e.g., `@file:.gemini/styles/python.md`) before generating the plan. Look for relevant patterns, especially:
    - Request routing (UI → API proxy → FastAPI)
    - Store/factory patterns
    - Worker/job patterns for background tasks
 
-4. **Break into steps.** Create a numbered task list:
+4. **Break into steps.** Draft the plan using the `impl-plan-template.md` structure. Create a numbered task list:
    - Order by dependency (database first, then API, then UI)
    - Each step should be independently testable
    - Flag steps that require manual actions (migrations, deploys)

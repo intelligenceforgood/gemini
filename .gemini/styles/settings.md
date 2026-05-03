@@ -1,5 +1,5 @@
 ---
-applyTo: "**/settings*.toml,**/settings*.py,**/.env*,**/pyproject.toml"
+applyTo: "**/settings*.toml,**/settings*.py,**/.env*,**/pyproject.toml,**/*.yaml,**/*.yml"
 ---
 
 # Settings & Configuration Standards

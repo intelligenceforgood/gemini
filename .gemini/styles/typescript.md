@@ -16,6 +16,11 @@ applyTo: "**/*.ts,**/*.tsx,**/*.jsx"
 - **No manual casing translation.** Use framework-native serialization.
 - **HTML/CSS:** Semantic HTML. Keyboard accessibility. `alt` on images. CSS Modules preferred. No `!important`.
 
+# State Management & Data Fetching
+
+- **State Management:** Avoid heavy third-party state libraries (e.g., Redux, Zustand). Rely on the native React Context API combined with native hooks (`useState`, `useContext`) for global or shared state (e.g., `auth-context.tsx`, `engagement-context.tsx`).
+- **Data Fetching:** Do not use libraries like React Query, SWR, or Apollo. Data fetching should strictly utilize our custom internal SDK (`@i4g/sdk`) and client factories (`createClient`, `createPlatformClient`). Use custom hooks or Next.js 15 Server Actions to interact with the API clients. API base URLs are dynamically resolved based on the environment (server vs. client).
+
 # UI / SDK Build Checklist
 
 ## SDK Interface Sync

@@ -1,31 +1,17 @@
 ---
 agent: agent
-description: "Start your day — check status, load context, identify what to work on"
+description: "Rehydrate session context by loading architecture, recent changes, and lessons learned"
 ---
 
-# Session Rehydration
+# Rehydrate Session
 
-Kick off a new working session by gathering context.
+LLMs are stateless between sessions. This routine forces the model to read the critical workspace state and repo memory so it operates with full "senior engineer" context before starting new work.
 
 ## Steps
 
-1. **Git status across repos.** Run `git status -sb` in core/, ui/, ssi/, and any other repos with recent activity. Report the current branch and any uncommitted changes.
-
-2. **Recent commits.** Run `git log --oneline -5` in repos with changes to see what happened last session.
-
-3. **Change log.** Read the last 30 lines of `planning/change_log.md` for recent decisions.
-
-4. **Active tasks.** Search `planning/tasks/` for files with unchecked items (`- [ ]`). Identify the current sprint or work stream.
-
-5. **Repo memory.** Read `/memories/repo/` files to recall lessons learned and workflow patterns from prior sessions.
-
-6. **Architecture context.** Skim `.gemini/styles/architecture.md` for the system overview.
-
-7. **Status report.** Present:
-   - Current branch per repo
-   - Uncommitted changes
-   - Active task/sprint
-   - Key context from change log
-   - Relevant items from repo memory
-
-8. **Suggest next action.** Based on the status, recommend what to work on and which routine to use (plan-work, fix-bug, pre-merge-review, etc.).
+1. **Read Memories.** Silently read `/memories/repo/lessons-learned.md`. Pay special attention to past pitfalls and workflow corrections (e.g., the necessity of explicit `@file` tagging).
+2. **Read Architecture.** Silently read `.gemini/styles/architecture.md` to understand the routing, auth, and database patterns.
+3. **Read Recent Changes.** Silently read `planning/change_log.md` (the latest entries) to understand what was recently completed.
+4. **Load Workflow Rules.** Silently check for any overarching workflow rules in `.gemini/styles/workflow.md` (if it exists).
+5. **Enforce Guardrails.** Acknowledge the context loaded. Explicitly remind the user to use strict `@file` and `@folder` tags for any subsequent execution requests to prevent hallucinations.
+6. **Ready.** Report that the session is fully rehydrated and ask the user what task they want to work on next.

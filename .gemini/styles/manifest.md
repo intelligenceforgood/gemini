@@ -64,7 +64,7 @@ Use Markdown for readability **with XML tags around contract-critical sections**
 ## Context
 
 <Background the Executor needs: linked PRD, relevant architecture notes, upstream decisions.
-Link to `copilot/.github/shared/architecture-cheatsheet.instructions.md` sections rather than re-stating.>
+Link to `.gemini/styles/architecture.md` sections rather than re-stating.>
 
 <files>
 ### Files to modify
@@ -132,7 +132,7 @@ Run `/clarify` — produce a short structured question and stop. Do not guess.
 
 1. **Write verification as commands**, not prose. Executors follow commands more reliably than narratives.
 2. **Use `<do_not>` liberally** to prevent drift — models are more obedient about explicit negatives than implicit scope.
-3. **Link, don't repeat** — reference `architecture-cheatsheet.instructions.md` and `general-coding.instructions.md` by path; do not inline their content.
+3. **Link, don't repeat** — reference `.gemini/styles/architecture.md` and relevant language styleguides by path; do not inline their content.
 4. **Version the manifest** if you revise it mid-execution. Bump `Manifest version` and tell the Executor to restart from the affected step.
 5. **One phase per manifest.** If the work needs phase checkpoints, it needs multiple manifests. See "Scope cap" above.
 6. **Hoist shared primitives first.** If a pattern (e.g., `ProviderGate`, `SkippedResult`, a shared client base) will be reused by ≥2 modules in this or a future manifest, create its home file FIRST in the step order — do not let the Executor inline it into the first consumer.

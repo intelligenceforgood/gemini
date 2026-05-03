@@ -1,39 +1,27 @@
 ---
 agent: agent
-description: "Diagnose and fix a bug — reproduce, root-cause, fix, regression test"
+description: "[Executor] Fix a reported bug with explicitly scoped context."
 ---
 
 # Fix Bug
 
-Systematic bug investigation and fix workflow.
+Diagnose and fix the reported issue within a narrow, optimized context.
 
-## Steps
+## Instructions
 
-1. **Reproduce.** Understand the symptoms. If possible, reproduce the bug:
-   - Read error messages, logs, or stack traces
-   - Identify the failing code path
-   - Check if there's a test that should have caught this
-   - **CRITICAL**: Use explicit `@file:path/to/log` or `@folder:path/to/component` tags. Do not rely on global scans to find logs or traces.
+1. **Scope Context (Strict):**
+   - Require the user to tag the specific files involved with the bug.
+   - Ask the user to tag the appropriate language style guide (e.g., `@file:.gemini/styles/python.md` or `@file:.gemini/styles/typescript.md`).
+   - **Crucially:** If the bug relates to testing, pipelines, deployment, or vulnerabilities, enforce the inclusion of `@file:.gemini/styles/testing.md`, `@file:.gemini/styles/ci-cd.md`, and/or `@file:.gemini/styles/security.md`.
 
-2. **Root-cause analysis.** Trace the issue:
-   - Read the relevant source files using explicitly provided `@file` context (don't guess — read the code)
-   - Check recent changes: `git log --oneline -10 -- <suspect-files>`
-   - Look for common patterns: missing null checks, wrong env var, race condition, schema mismatch
+2. **Diagnose:**
+   - Review the provided logs, stack traces, or descriptions.
+   - Identify the root cause without triggering wide workspace scans.
 
-3. **Fix.** Apply the minimal correct fix:
-   - Fix the root cause, not the symptom
-   - Follow coding standards (type hints, specific exceptions, etc.)
-   - Don't refactor surrounding code unless directly related to the bug
+3. **Execute Fix:**
+   - Implement the bug fix.
+   - Comply fully with the architectural and security standards loaded in the context.
 
-4. **Regression test.** Write a test that:
-   - Would have caught this bug before the fix
-   - Verifies the fix works
-   - Run: `conda run -n i4g pytest tests/unit -x`
-
-5. **Verify no collateral damage.** Run the full test suite to ensure the fix doesn't break anything else.
-
-6. **Record lesson.** If the bug reveals a pattern or pitfall, save it:
-   - Add to `/memories/repo/lessons-learned.md`
-   - If it's the 3rd+ occurrence of a pattern, consider promoting to a `.instructions.md`
-
-7. **Summarize.** Report: root cause, fix applied, test added, and any related risks.
+4. **Verify:**
+   - Ensure the fix addresses the issue. Provide a concise explanation of what was changed and why.
+   - Provide a run command to test the fix if applicable.

@@ -9,6 +9,8 @@ Pre-flight checklist before deploying to the `i4g-dev` environment.
 
 ## Steps
 
+0. **Scope Context (Strict):** Require the user to explicitly tag `@file:.gemini/styles/ci-cd.md` and `@file:.gemini/styles/docker.md` before proceeding.
+
 1. **Pre-merge review first.** Ensure the pre-merge review routine has been completed. If not, run it first.
 
 2. **Local smoke test.** Verify the code works locally before any cloud operation:

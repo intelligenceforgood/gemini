@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.md"
+applyTo: "docs/**/*.md"
 ---
 
 # Documentation & GitBook Discipline
