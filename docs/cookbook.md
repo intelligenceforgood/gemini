@@ -5,9 +5,10 @@ This cookbook provides practical examples of how to chain GCA routines together 
 > ⚠️ **CRITICAL: Agent Mode & Quota Management**
 >
 > Your daily quota is finite. To avoid running out:
-> * **Turn Agent Mode OFF** for planning, drafting PRDs, code reviews of single files, and analyzing logs.
-> * **Turn Agent Mode ON** *only* when you need GCA to autonomously edit multiple files, run tests in the terminal, or perform complex, scoped refactoring.
-> * Always use explicit tags (`@file:path`, `@folder:path`) to restrict context.
+>
+> - **Turn Agent Mode OFF** for planning, drafting PRDs, code reviews of single files, and analyzing logs.
+> - **Turn Agent Mode ON** _only_ when you need GCA to autonomously edit multiple files, run tests in the terminal, or perform complex, scoped refactoring.
+> - Always use explicit tags (`@file:path`, `@folder:path`) to restrict context.
 
 ## 🥘 Recipe 1: End-to-End Feature Development
 
@@ -71,3 +72,15 @@ This cookbook provides practical examples of how to chain GCA routines together 
 2.  **Plan Refactor**: Type `gca-plan-work`.
     - _Input_: "Plan the refactoring steps to safely update all 50 usages of `format_date()`, prioritizing minimizing test breakages."
 3.  **Iterative Execution**: Use `gca-work-on-task` to execute the refactoring in batches, asking GCA to run tests after each batch to ensure stability.
+
+## 🔄 Recipe 5: Managing Long Sessions
+
+**Scenario**: You have been working on a complex feature for a while, and the chat context window is getting too large (which can cause GCA to lose focus or consume too many tokens).
+
+**Steps**:
+
+1.  **Prepare Handoff**: Open GCA Chat and type `gca-prepare-new-session`.
+    - _Input_: "We've done a lot of work on this feature. Please prepare a handoff prompt for a new session."
+    - _Action_: GCA will summarize the current state, identify next steps, and generate a strictly scoped prompt with `@file:` tags.
+2.  **Start Fresh**: Open a **New Chat** in GCA.
+3.  **Execute**: Paste the generated prompt from Step 1 into the new chat to continue working with a clean, focused context window.

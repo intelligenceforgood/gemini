@@ -138,5 +138,12 @@
       "@prompts/wrapup-and-merge.md Wrap up the sprint, perform review, and merge"
     ],
     "description": "Sprint wrapup, review, and merge using GCA routine"
+  },
+  "GCA Prepare New Session": {
+    "prefix": "gca-prepare-new-session",
+    "body": [
+      "@prompts/prepare-new-session.md Prepare a handoff prompt for a new session"
+    ],
+    "description": "Summarize the session and prepare a prompt for a fresh chat"
   }
 }
