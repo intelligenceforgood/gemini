@@ -18,7 +18,7 @@ description: "[Planner] Break a feature or task into actionable steps"
    - Store/factory patterns
    - Worker/job patterns for background tasks
 
-4. **Break into steps.** Draft the plan using the `impl-plan-template.md` structure. Create a numbered task list:
+4. **Break into steps.** Draft the plan using the template structure below. Create a numbered task list:
    - Order by dependency (database first, then API, then UI)
    - Each step should be independently testable
    - Flag steps that require manual actions (migrations, deploys)
@@ -35,3 +35,20 @@ description: "[Planner] Break a feature or task into actionable steps"
    - **Skip `/handoff`, implement inline** if ANY of these hold: estimated < 8 Executor turns, < 3 files touched, single repo with no migrations/env vars/API changes, or throwaway/exploratory work. The Planner-overhead tax (roughly 2× the Planner cost for handoff + verify) only pays back on longer work.
    - **Use `/handoff`** for multi-file, multi-repo, or risky work where scope discipline matters more than speed.
    - **Batch sprints into one manifest** when possible. Don't produce one manifest per sprint when two or three sprints share a coherent slice of work — the Planner cost is mostly fixed per handoff session, so one larger manifest is far cheaper than N small ones.
+
+## Template
+
+**Objective:** {Brief description of the goal}
+
+### 1. Milestones
+
+Divide the work into logical phases (e.g., Database, Backend, Frontend).
+
+### 2. Task Checklist
+
+Create a markdown task list `- [ ]` for each step. Each task should be independently testable.
+
+**CRITICAL:** Every task MUST explicitly mention the exact files it will modify using `@file:path/to/file` or `@folder:path/to/folder` tags to restrict future execution scope.
+
+- [ ] Step 1: ...
+- [ ] Step 2: ...
