@@ -7,26 +7,31 @@ The GCA Productivity Framework is designed to be extensible. As the I4G platform
 If your team develops a new workflow that should be standardized, add it to the framework:
 
 1.  **Create the Prompt**:
-    *   Create a new markdown file in the `gemini/prompts/` directory (e.g., `gemini/prompts/load-testing.md`).
-    *   Use clear, imperative language. Structure the prompt to give GCA context, an objective, and a specific output format.
-    *   Example structure:
-        ```markdown
-        # Context
-        We need to perform load testing on a specific service.
+    - Create a new markdown file in the `gemini/prompts/` directory (e.g., `gemini/prompts/load-testing.md`).
+    - Use clear, imperative language. Structure the prompt to give GCA context, an objective, and a specific output format.
+    - Example structure:
 
-        # Instructions
-        1. Analyze the provided endpoints.
-        2. Generate a Locust (`locustfile.py`) script.
-        3. Include varied user behavior simulation.
+      ```markdown
+      # Context
 
-        # Output Format
-        Provide the complete python code in a single code block.
-        ```
+      We need to perform load testing on a specific service.
+
+      # Instructions
+
+      1. Analyze the provided endpoints.
+      2. Generate a Locust (`locustfile.py`) script.
+      3. Include varied user behavior simulation.
+
+      # Output Format
+
+      Provide the complete python code in a single code block.
+      ```
+
 2.  **Update the Snippets**:
-    *   Open `gemini/snippets/gemini.code-snippets`.
-    *   Add a new JSON entry for your prompt to make it easily accessible in VSCode.
+    - Open `gemini/snippets/gemini.code-snippets`.
+    - Add a new JSON entry for your prompt to make it easily accessible in VSCode.
 3.  **Update the Catalog**:
-    *   Add your new routine to `docs/routine-catalog.md` so other developers know it exists.
+    - Add your new routine to `docs/routine-catalog.md` so other developers know it exists.
 
 ## Updating the Styleguide
 
@@ -40,13 +45,13 @@ The `.gemini/styles/` directory contains the master documents for architectural 
 
 While `gemini/` holds global standards, individual repositories often have unique requirements.
 
-Instead of polluting the global styles, add a `.gemini/context.md` or update the local `.gemini/config.yaml` *inside the specific repository* (e.g., `ui/.gemini/context.md`).
-
-When GCA is active in that repository, it will read both the symlinked global styleguide and the local context files, merging the instructions.
+By placing a `.gemini/context.md` file inside a sub-repository (e.g., `core/.gemini/context.md`), GCA will automatically index it. The global routing rules instruct GCA to implicitly apply these local rules whenever you are working in that specific repository folder.
 
 **Example `core/.gemini/context.md`:**
+
 ```markdown
 # Core Repo Specifics
+
 - Always use the `i4g-backend` conda environment.
 - Run migrations using `alembic upgrade head` before running tests.
 - This repository interacts heavily with BigQuery; prioritize optimized SQL over ORM methods for analytics queries.

@@ -19,28 +19,18 @@ By leveraging standardized prompts, predefined routines, and consolidated archit
 
 ### 1. Workspace Integration
 
-To leverage the framework, ensure the `gemini` repository is accessible alongside your target repositories.
+To leverage the framework, ensure you open the unified parent directory containing all your I4G repositories (e.g., the folder containing `core`, `ui`, `gemini`, etc.).
 
-Add the `gemini` directory to your VSCode Workspace:
-
-```json
-{
-  "folders": [
-    { "path": "../core" },
-    { "path": "../ui" },
-    { "path": "../gemini" }
-  ]
-}
-```
+In VS Code, go to **File > Open Folder...** and select this parent directory.
 
 ### 2. Establish "Anchor" Styles
 
-In each of your product repositories (e.g., `core/`, `ui/`, `infra/`), symlink the global styles directory to ensure GCA automatically reads our targeted platform standards:
+Because VS Code treats the parent directory as the single workspace root, you only need to symlink the global `.gemini` configuration once at the parent root, rather than inside every single repository:
 
 ```bash
-cd path/to/your/repo
-rm -rf .gemini/styles
-ln -s ../gemini/.gemini/styles .gemini/styles
+cd /path/to/your/parent/i4g/directory
+rm -rf .gemini
+ln -s gemini/.gemini .gemini
 ```
 
 ### 3. Verify Setup

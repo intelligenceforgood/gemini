@@ -10,30 +10,22 @@ Welcome to the Gemini Code Assist (GCA) Productivity Framework! This guide will 
 
 ## Step 1: Workspace Configuration
 
-The most effective way to use GCA is with a VSCode Multi-Root Workspace. This allows GCA to see the global standards alongside your active code.
+The recommended way to use GCA is to open the unified parent directory containing all your I4G repositories. This allows GCA to see the global standards alongside your active code.
 
-1. Clone the `gemini` repository into the same parent directory as your other I4G projects (e.g., `core`, `ui`, `infra`).
-2. Create or open your `.code-workspace` file.
-3. Ensure the `gemini` repo is included in the folders array:
-
-```json
-{
-  "folders": [{ "path": "core" }, { "path": "ui" }, { "path": "gemini" }],
-  "settings": {}
-}
-```
+1. Ensure all your I4G projects (e.g., `core`, `ui`, `infra`, `copilot`, `ssi`, `ml`) are located in the same parent directory.
+2. Clone the `gemini` repository into that same parent directory.
+3. In VS Code, go to **File > Open Folder...** and select the parent directory.
 
 ## Step 2: Establish the Anchor Context
 
-For GCA to enforce our specific architectural rules and coding standards natively, you need to link the global styles directory into the repositories you actively work in.
+Because VS Code treats the parent directory as the single workspace root, GCA will look for the global `.gemini` configuration at this top level. You only need to symlink it once.
 
-Run the following commands in the root of **each product repository** you develop in (e.g., `core/`, `ui/`):
+Run the following commands in your **unified parent directory**:
 
 ```bash
-cd path/to/your/repo
-rm -f .gemini/styleguide.md  # Remove legacy monolithic file if it exists
-# Create a relative symlink pointing to the global styles directory
-ln -s ../gemini/.gemini/styles .gemini/styles
+cd /path/to/your/parent/i4g/directory
+rm -rf .gemini
+ln -s gemini/.gemini .gemini
 ```
 
 _Why a symlink?_ When GCA analyzes a file in your project, it looks for a `.gemini` directory in that project's root. The symlink ensures it always reads the most up-to-date global standards without needing to duplicate files.
@@ -66,14 +58,18 @@ Gemini Code Assist has a powerful "Agent Mode" that allows it to autonomously se
 To optimize your quota, follow these strict toggling rules:
 
 ### Turn Agent Mode OFF (🟢 High Quota Efficiency)
+
 Use this mode for 80% of your interactions:
+
 - Asking general programming questions.
 - Analyzing log files or stack traces (paste them in, or use explicitly scoped tags like `@file:error.log`).
 - Drafting PRDs or initial architectural plans where you provide the context via text.
 - Reviewing code where you only want it to look at the active file you have open.
 
 ### Turn Agent Mode ON (🔴 Quota Heavy - Use Strategically)
+
 Only toggle this ON when you need autonomous execution:
+
 - Executing a specific implementation plan across multiple files.
 - Asking it to "run the tests and fix the errors" (where it needs autonomy to use the terminal).
 - Refactoring tasks where you have explicitly scoped the target using `@folder` tags.

@@ -6,6 +6,7 @@ include:
   - "**/*.js"
   - "**/*.jsx"
   - ".gemini/styles/**/*.md"
+  - "**/.gemini/context.md"
 exclude:
   - "node_modules/**"
   - ".git/**"
