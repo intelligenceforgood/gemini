@@ -10,7 +10,7 @@ This is the single combined routine — no need to run `/code-review` separately
 
 ## Phase 1 — Identify Changed Repositories
 
-1. **Identify Changes:** Do NOT scan the entire workspace autonomously. Ask the user to list the changed repositories or ask them to paste the output of `git status` across their repos.
+1. **Identify Changes:** Autonomously scan the workspace using shell commands to find all git repositories with unstaged, staged, or unpushed changes.
    - Because the platform is implemented by multiple repos, they must be merged together to ensure the application remains in a consistent state.
 2. List all identified changed repositories before proceeding.
 
