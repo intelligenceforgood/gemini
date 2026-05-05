@@ -12,3 +12,5 @@
   - **Mitigation:** Instruct the Executor to explicitly write valid boilerplate migration scripts to bypass the error if it occurs.
 - **Test Fixture Constraints:** When mocking `threat_actors` (e.g., in a `_seed_actor` helper) in tests, SQLite enforces NOT NULL constraints on fields like `display_name`.
   - **Mitigation:** Ensure test fixtures populate a mock `display_name` to satisfy the constraint.
+- **Forgetting to Update Trackers:** Executors frequently forget to mark completed or staged tasks in the tracking markdown document (e.g., changing `[ ]` to `[x]`) despite being asked to do so.
+  - **Mitigation:** The Planner should explicitly verify the tracker document state as part of the handoff review, and manifest templates should emphasize tracking updates as a mandatory final step.
