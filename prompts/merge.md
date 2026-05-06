@@ -21,6 +21,8 @@ Execute every step of the code review routine (`@prompts/code-review.md`):
 code audit, quality gates, tests, docs/config check. Fix all issues found before proceeding.
 Crucially, strictly enforce all rules defined in `@file:.gemini/styles/ci-cd.md` and `@file:.gemini/styles/security.md`.
 
+_Override Note:_ Ignore the "CRITICAL RULE: Do NOT search the workspace" instruction in `code-review.md`. Since this is an autonomous merge, generate the `git diff` yourself via shell commands for the repos identified in Phase 1.
+
 During this review, actively look for scope drift: unrelated refactors, silent API changes, or unauthorized new dependencies. Warn the user if drift is detected.
 Do NOT proceed to Phase 3 if any quality gate fails or tests have failures in ANY repo.
 
@@ -29,12 +31,12 @@ Do NOT proceed to Phase 3 if any quality gate fails or tests have failures in AN
 After the review passes, verify the working tree is merge-ready for EVERY changed repo:
 
 1. **No stray files.** `git status` in each changed repo shows only intentional changes.
-   - No merge conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
+   - No merge conflict markers (Verify via `git diff --check` or `grep -rn "<<<<<<<" .`)
    - No temp files (`*.tmp`, `*.bak`, `*.swp`, `.DS_Store`, `__pycache__/`)
    - No debug scripts outside `tests/` (`debug_*.py`, `scratch_*.py`)
    - If any found, alert the user and do NOT proceed
 
-2. **No secrets.** Scan staged content for:
+2. **No secrets.** Scan ALL pending changes (staged and unstaged) for:
    - API keys / tokens (`sk-`, `ghp_`, `AIza`, `AKIA`)
    - Private keys (`BEGIN RSA PRIVATE KEY`, etc.)
    - `.env` files that should be gitignored
