@@ -39,18 +39,12 @@ This catalog outlines all available Developer Routines provided by the GCA Produ
 
 | Routine               | File                   | Snippet      | Description                                                                                 |
 | --------------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------- |
-| **Rehydrate Session** | `rehydrate-session.md` | `gca-resume` | Restores context from a previous session or handoff document.                               |
+| **Rehydrate Session** | `rehydrate-session.md` | `gca-resume` | Restores context from a previous session.                                                   |
 | **Sprint Wrapup**     | `sprint-wrapup.md`     | `gca-wrapup` | Summarizes completed work and updates agile trackers.                                       |
 | **Record Lesson**     | `record-lesson.md`     | `gca-lesson` | Documents key learnings, edge cases, or architectural shifts discovered during development. |
 | **Hardening Sprint**  | `hardening-sprint.md`  | `gca-harden` | Focuses GCA on security, performance, and reliability improvements.                         |
 
-## 🤝 Handoffs
 
-| Routine              | File                  | Snippet       | Description                                                                           |
-| -------------------- | --------------------- | ------------- | ------------------------------------------------------------------------------------- |
-| **Create Handoff**   | `handoff.md`          | `gca-handoff` | Generates a comprehensive handoff manifest for another developer or the next session. |
-| **Execute Manifest** | `execute-manifest.md` | `gca-exec`    | Executes tasks defined in a handoff manifest.                                         |
-| **Verify Handoff**   | `verify-handoff.md`   | `gca-check`   | Verifies that a handoff manifest is complete and actionable.                          |
 
 ---
 

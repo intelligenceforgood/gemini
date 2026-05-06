@@ -1,6 +1,6 @@
 ---
 agent: agent
-description: "[Executor] Implement features via Test-Driven Development with explicit scoping."
+description: "Implement features via Test-Driven Development with explicit scoping."
 ---
 
 # TDD Template

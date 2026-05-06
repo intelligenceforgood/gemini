@@ -1,6 +1,6 @@
 ---
 agent: agent
-description: "[Executor] Fix a reported bug with explicitly scoped context."
+description: "Fix a reported bug with explicitly scoped context."
 ---
 
 # Fix Bug

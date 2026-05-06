@@ -1,11 +1,11 @@
 ---
 agent: agent
-description: "[Executor] Execute a specific task with explicitly scoped context."
+description: "Execute a specific task with explicitly scoped context."
 ---
 
 # Work on Task
 
-Execute the given task efficiently while adhering to quota-saving strict file scoping.
+Execute the given task faithfully and efficiently while adhering to quota-saving strict file scoping.
 
 ## Instructions
 
@@ -19,6 +19,9 @@ Execute the given task efficiently while adhering to quota-saving strict file sc
 2. **Execute:**
    - Make the necessary code modifications strictly within the tagged files.
    - Ensure the new code follows the rules defined in the explicitly tagged style guides.
+   - Do not refactor adjacent code outside the scope of the task. Keep changes minimal and focused.
+   - If blocked by ambiguity (missing context, contradictory instructions, unexpected code state), **STOP and ask the user for clarification**. Do not guess.
 
 3. **Verify:**
+   - Identify and explicitly ask the user to run any relevant tests or verification commands to ensure the change works as intended.
    - Keep explanations lean and ensure no conversational fluff is introduced.

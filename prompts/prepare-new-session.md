@@ -12,7 +12,7 @@ We have done a lot of work in this session and the context window is getting lar
 1. **Summarize current state:** Briefly list what was successfully accomplished in this session.
 2. **Identify next steps:** Identify the immediate next task that needs to be tackled from the active plan or current state of work.
 3. **Determine target files (Strict Scope):** Identify the 1-5 exact files (code, tests, relevant `.gemini/styles/*.md`, or active plan) that the new session will need to use to continue the work. Do not include files that are already completed and no longer need edits.
-4. **Generate Handoff Prompt:** Create a ready-to-paste prompt for the user. It should instruct the new session on what context to load, what the goal is, and explicitly tag the required files using `@file:`.
+4. **Generate Session Prompt:** Create a ready-to-paste prompt for the user. It should instruct the new session on what context to load, what the goal is, and explicitly tag the required files using `@file:`.
 
 ## Output Format
 

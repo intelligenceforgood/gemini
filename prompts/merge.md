@@ -21,6 +21,7 @@ Execute every step of the code review routine (`@prompts/code-review.md`):
 code audit, quality gates, tests, docs/config check. Fix all issues found before proceeding.
 Crucially, strictly enforce all rules defined in `@file:.gemini/styles/ci-cd.md` and `@file:.gemini/styles/security.md`.
 
+During this review, actively look for scope drift: unrelated refactors, silent API changes, or unauthorized new dependencies. Warn the user if drift is detected.
 Do NOT proceed to Phase 3 if any quality gate fails or tests have failures in ANY repo.
 
 ## Phase 3 — Clean Working Tree

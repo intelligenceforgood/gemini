@@ -49,18 +49,18 @@ This cookbook provides practical examples of how to chain GCA routines together 
     - _Input_: "Record the lesson learned regarding database transaction timeouts during profile updates."
     - _Action_: Append the result to a team knowledge base or the `README.md`.
 
-## 🤝 Recipe 3: Context Handoff
+## 🤝 Recipe 3: Session Continuation
 
-**Scenario**: You are ending your day in the middle of a complex refactoring task and need to hand it off to a colleague in another timezone.
+**Scenario**: You are ending your day in the middle of a complex task and need to hand it off to a colleague, or continue it yourself in a new chat session tomorrow.
 
 **Steps**:
 
-1.  **Create Handoff**: Open GCA Chat and type `gca-handoff`.
-    - _Input_: "Create a handoff manifest for the ongoing Auth module refactor. I have completed steps 1 and 2, but step 3 is failing unit tests."
-    - _Action_: Save the output to `planning/handoff_auth_refactor.md` and commit/push it.
-2.  **Receive Handoff (Colleague)**: Your colleague pulls the branch. They open GCA Chat and type `gca-rehydrate-session`.
-    - _Input_: "Read `planning/handoff_auth_refactor.md` and restore your context so we can continue."
-    - _Next Step_: Colleague types `gca-execute-manifest` -> "Execute the next pending task in the handoff document."
+1.  **Update the Plan**: Ensure the active sprint task in `planning/tasks/` has its checkboxes updated to reflect what is done and what is pending.
+    - _Input_: "Update the checkboxes in `@file:planning/tasks/auth-refactor.md` to mark steps 1 and 2 as complete."
+2.  **Commit and Push**: Commit your changes and push the branch.
+3.  **Receive / Continue**: Your colleague (or you) opens a new GCA Chat session.
+    - _Input_: "Read the remaining steps in `@file:planning/tasks/auth-refactor.md` and summarize what needs to be done next."
+    - _Next Step_: Use `gca-work-on-task` to explicitly scope and execute the next unchecked step.
 
 ## 🛠️ Recipe 4: Deep Refactoring with Context
 
@@ -79,8 +79,7 @@ This cookbook provides practical examples of how to chain GCA routines together 
 
 **Steps**:
 
-1.  **Prepare Handoff**: Open GCA Chat and type `gca-prepare-new-session`.
-    - _Input_: "We've done a lot of work on this feature. Please prepare a handoff prompt for a new session."
-    - _Action_: GCA will summarize the current state, identify next steps, and generate a strictly scoped prompt with `@file:` tags.
+1.  **Sprint Wrap-Up**: Type the `gca-sprint-wrapup` snippet.
+    - _Input_: "Run the sprint wrap-up routine to update our planning files and change log, so we have a clean save point."
 2.  **Start Fresh**: Open a **New Chat** in GCA.
-3.  **Execute**: Paste the generated prompt from Step 1 into the new chat to continue working with a clean, focused context window.
+3.  **Execute**: Start the new chat by referencing the updated plan: "Read `@file:planning/tasks/current-feature.md` and let's work on the next unchecked task using `gca-work-on-task`."
