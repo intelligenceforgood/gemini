@@ -23,9 +23,11 @@ resource.type = "cloud_run_job" resource.labels.job_name = "ingest-bootstrap" la
    - If ambiguous, ask.
 
 2. **Fetch logs** using `gcloud logging read`:
+
    ```bash
    gcloud logging read '<PASTE_FILTER>' --project=<PROJECT> --limit=200 --format="value(textPayload)" | head -500
    ```
+
    - If `textPayload` is empty, retry with `--format=json` and extract `jsonPayload` or `httpRequest`.
    - For severity filtering, start with the filter as-is. If output is too noisy, tighten to `severity>=WARNING`.
 
@@ -38,4 +40,4 @@ resource.type = "cloud_run_job" resource.labels.job_name = "ingest-bootstrap" la
    - State the root cause clearly (one sentence).
    - Show the relevant log snippet.
    - Propose a fix with file paths and specific code changes.
-   - If the fix is straightforward, implement it.
+   - If the fix is straightforward, implement it. **CRITICAL: Do NOT output the modified code or code diffs in your chat response. Simply list the files that were modified.**

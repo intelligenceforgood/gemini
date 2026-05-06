@@ -43,4 +43,4 @@ Start a platform hardening work session. Load the review, execution plan, and gu
    implement → test → document → validate → summarize.
 
 7. **After completion.** Check off the task in the execution plan, update the progress table,
-   and note the change in `planning/change_log.md`.
+   and note the change in `planning/change_log.md`. **CRITICAL: Do NOT output the modified code or diffs in your chat response. Simply list the files that were modified.**

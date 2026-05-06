@@ -23,5 +23,5 @@ Diagnose and fix the reported issue within a narrow, optimized context.
    - Comply fully with the architectural and security standards loaded in the context.
 
 4. **Verify:**
-   - Ensure the fix addresses the issue. Provide a concise explanation of what was changed and why.
+   - Ensure the fix addresses the issue. Provide a concise explanation of what was changed and why. **CRITICAL: Do NOT output the modified code or code diffs in your chat response. Since the files are already updated, simply list the files that were modified.**
    - Provide a run command to test the fix if applicable.

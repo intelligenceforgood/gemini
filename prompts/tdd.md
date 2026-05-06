@@ -18,8 +18,8 @@ Follow the Test-Driven Development workflow while adhering to platform style con
    - Present the test to the user and wait for confirmation (or run it to confirm it fails).
 
 3. **Green Phase (Make it Pass):**
-   - Write the minimal code required to pass the test, strictly inside the scoped source file.
+   - Write the minimal code required to pass the test, strictly inside the scoped source file. **CRITICAL: Do NOT output the modified code or code diffs in your chat response. Just list the modified files.**
 
 4. **Refactor Phase:**
    - Refactor the code for clarity, performance, and adherence to the language-specific style guide.
-   - Ensure tests remain green.
+   - Ensure tests remain green. **CRITICAL: Do NOT output the refactored code blocks in the chat.**

@@ -5,7 +5,7 @@ description: "Break a feature or task into actionable steps"
 
 # Plan Work
 
-**Role: Agent.** Take a feature request, task description, or user story and break it into implementable steps. This routine produces a plan; it does not implement. **Always save the resulting plan document as a new markdown file in the `planning/tasks/` directory.** When the plan is ready, explicitly state the next step so the user can use `/work-on-task` to implement it.
+**Role: Agent.** Take a feature request, task description, or user story and break it into implementable steps. This routine produces a plan; it does not implement. **Always save the resulting plan document as a new markdown file in the `planning/tasks/` directory.** When the plan is ready, explicitly state the next step so the user can use `/work-on-task` to implement it. **CRITICAL: Do NOT output the markdown plan in your chat response. Since you are saving it directly, just summarize the plan briefly in chat.**
 
 ## Steps
 

@@ -35,4 +35,4 @@ description: "Pre-merge code review — verifies cross-repo consistency, archite
 
 ## 6. Action Items
 
-List specific bugs, improvements, or "Looks good to me".
+List specific bugs, improvements, or "Looks good to me". **CRITICAL: Keep code snippets in your suggestions extremely minimal. Do NOT rewrite or output whole files; only provide the exact lines to be changed or a concise description of the fix.**

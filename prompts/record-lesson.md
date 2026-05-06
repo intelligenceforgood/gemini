@@ -24,4 +24,4 @@ Capture something learned during this session so future sessions benefit from it
 
 4. **Auto-Promote.** If the lesson is a critical workflow guardrail (e.g., GCA hallucinated due to a lack of strict `@file` tags) OR the same category now has 3+ similar lessons, **do not wait for permission**. Automatically edit and promote the pattern to the appropriate style guide in `.gemini/styles/` (such as `workflow.md` or `python.md`).
 
-5. **Confirm.** Tell the user what was recorded to the lessons-learned file, and explicitly state if it was also automatically promoted to a permanent style guide.
+5. **Confirm.** Tell the user what was recorded to the lessons-learned file, and explicitly state if it was also automatically promoted to a permanent style guide. **CRITICAL: Do NOT output the full updated markdown file contents in your chat response.**
