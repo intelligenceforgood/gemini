@@ -59,3 +59,7 @@ an unintended change (revert it) before declaring the merge complete.
 ## 4. Executing Multi-Phase Routines
 
 When instructed to execute a multi-phase prompt or routine (like `merge.md`), **do not pause and ask for permission** to proceed to the next phase unless the prompt explicitly instructs you to do so. Complete all phases of the routine autonomously. Pausing mid-routine defeats the purpose of an automated prompt and unnecessarily halts the workflow.
+
+## 5. Interpreting Prompt Files as Actions
+
+When a user provides a prompt file (e.g., `merge.md`) alongside a target plan or file, they intend for you to **execute the instructions** within that prompt file against the workspace. You must **NEVER** literally append the contents of the prompt file into the target document unless explicitly told to do so.
