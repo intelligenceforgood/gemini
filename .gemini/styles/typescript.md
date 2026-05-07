@@ -10,6 +10,7 @@ applyTo: "**/*.ts,**/*.tsx,**/*.jsx"
 - **File names:** `kebab-case.ts` for utilities, `PascalCase.tsx` for React components (follow directory convention).
 - **Types:** Interfaces over `type` aliases for object shapes. Discriminated unions for status branching. Interfaces mirror API schemas with camelCase field names.
 - **React:** Functional components with hooks only. `React.FC` only when children needed. Derived state → custom hooks. Style via CSS modules or design system.
+- **Next.js 15:** Dynamic route `params` and `searchParams` are asynchronous. Always type them as a `Promise` (e.g., `params: Promise<{ id: string }>`) and `await` them before use.
 - **Exports:** Named exports preferred. Default exports only for Next.js pages/layouts.
 - **Error handling:** Never swallow errors. Use Error boundaries. `try/catch` must log or surface.
 - **Null handling:** Prefer `undefined` over `null`. Use `?.` and `??`.

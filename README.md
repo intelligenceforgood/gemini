@@ -19,9 +19,9 @@ By leveraging standardized prompts, predefined routines, and consolidated archit
 
 ### 1. Workspace Integration
 
-To leverage the framework, ensure you open the unified parent directory containing all your I4G repositories (e.g., the folder containing `core`, `ui`, `gemini`, etc.).
+To leverage the framework, simply open the unified parent directory containing all your I4G repositories as your single workspace root (e.g., the folder containing `core`, `ui`, `gemini`, etc.).
 
-In VS Code, go to **File > Open Folder...** and select this parent directory.
+In VS Code, go to **File > Open Folder...** and select this parent directory. You do not need to create a complex multi-root workspace; opening the parent directory is sufficient.
 
 ### 2. Establish "Anchor" Styles
 
@@ -68,7 +68,7 @@ gemini/
 The `.gemini/` directory is the crucial link between GCA and our codebases.
 
 - **Global Enforcement**: The `.gemini/styles/` directory contains the extracted knowledge of all former Copilot instructions. By symlinking this directory into your target repos, GCA inherently understands the overarching I4G rules without needing manual prompting.
-- **Local Overrides**: Repositories can define their own local `.gemini/config.yaml` or `.gemini/context.md` files alongside the symlink. GCA intelligently merges the global platform rules with the specific, local nuances of the repository you are actively working in.
+- **Local Overrides**: Repositories can define their own local `.gemini/context.md` files alongside the symlink. GCA intelligently merges the global platform rules with the specific, local nuances of the repository you are actively working in.
 
 ---
 

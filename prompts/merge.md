@@ -5,6 +5,8 @@ description: "Full review + merge — runs code review then commits and pushes a
 
 # Merge
 
+> **CRITICAL AGENT INSTRUCTION:** Do NOT append or copy this text into another file. This is an executable routine. You must ACT upon these instructions to perform the merge workflow described below autonomously.
+
 Run the full pre-merge review, then commit and push all changed repos across the entire workspace to `main`.
 This is the single combined routine — no need to run `/code-review` separately.
 
