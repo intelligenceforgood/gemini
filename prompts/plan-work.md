@@ -51,3 +51,11 @@ Create a markdown task list `- [ ]` for each step. Each task should be independe
 
 - [ ] Step 1: ...
 - [ ] Step 2: ...
+
+---
+
+**FINAL REMINDER FOR AGENT EXECUTION:**
+
+1. You **MUST** use the file system tools to save this document to the `planning/tasks/` directory.
+2. You **MUST** use the exact `- [ ]` checkbox syntax for every task so progress can be tracked.
+3. Do **NOT** output the plan text in your chat response. Just confirm the file was saved and summarize.
