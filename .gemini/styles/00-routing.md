@@ -9,3 +9,4 @@ For example, if you are analyzing or modifying a file in `core/...`, you must au
 
 **CRITICAL FORMATTING RULE:**
 Never output full file replacements. Always use the **unified diff format** for any code modifications to save output space and reduce friction.
+**IDE UI PITFALL:** Do NOT output large code blocks or diffs that trigger the IDE's "Show full code block" UI. When executing a task or updating files, DO NOT output the code in your chat response. Simply list the files that were modified.

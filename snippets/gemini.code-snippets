@@ -69,10 +69,10 @@
     ],
     "description": "Manual verification using GCA routine"
   },
-  "GCA Merge": {
-    "prefix": "gca-merge",
+  "Git Merge": {
+    "prefix": "git-merge",
     "body": [
-      "@prompts/merge.md Merge changes for $1"
+      "@prompts/git-merge.md Merge changes for $1"
     ],
     "description": "Merge changes using GCA routine"
   },
